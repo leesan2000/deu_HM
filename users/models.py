@@ -25,6 +25,7 @@ class CustomUser(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True)
 
     # Nose para que es esto de abajo pero en teoria soluciona un problema de los grupos y permisos.
+    #TO-DO investigar que son esas lineas.
 
     groups = models.ManyToManyField(Group, related_name='custom_users')
     user_permissions = models.ManyToManyField(Permission, related_name='custom_users')
