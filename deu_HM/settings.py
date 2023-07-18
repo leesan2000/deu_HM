@@ -43,10 +43,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'maps',
     'users',
-    'mapkick.django',
-    'deu_HM',
-    'bootstrap5',
-    'maps',
+    'faker',
 ]
 
 MIDDLEWARE = [
