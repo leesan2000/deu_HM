@@ -1,0 +1,29 @@
+ <html>
+    
+    {% load static %}  
+    <script src="{% static 'mapkick.bundle.js' %}"></script>
+    {{ map }}
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+
+    <body>                  
+        <div id='map' style='width: 400px; height: 300px;'></div>
+        <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNnptbWtkMDNpYjNrbnoxZHltZmhtbiJ9.hDEJKjc9Cq2708RJIHigIA';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/streets-v12', // style URL
+            center: [-58.381632, -34.603736], // starting position [lng, lat]
+            zoom: 9, // starting zoom
+        });
+    {% for address in addresses %}
+            var marker = new mapboxgl.Marker()
+            .setLngLat([{{ address.long }}, {{ address.lat }}])
+            .setPopup(new mapboxgl.Popup().setHTML("<p>{{ address.address }}</p>"))
+            .addTo(map);
+    {% endfor %}
+        </script>
+    </body>
+
+</html>   
