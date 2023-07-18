@@ -17,12 +17,6 @@
             center: [-58.381632, -34.603736], // starting position [lng, lat]
             zoom: 9, // starting zoom
         });
-    {% for address in addresses %}
-            var marker = new mapboxgl.Marker()
-            .setLngLat([{{ address.long }}, {{ address.lat }}])
-            .setPopup(new mapboxgl.Popup().setHTML("<p>{{ address.address }}</p>"))
-            .addTo(map);
-    {% endfor %}
         </script>
     </body>
 
