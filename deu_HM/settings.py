@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'maps',
     'users',
     'faker',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
