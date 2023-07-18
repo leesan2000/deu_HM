@@ -7,6 +7,7 @@ class Address(models.Model):
     address = models.TextField()
     lat = models.FloatField(blank=True, null=True)
     long = models.FloatField(blank=True, null=True)
+    notas = models.ManyToManyField
 
     def save(self, *args, **kwargs):
         g = geocoder.mapbox(self.address, key=mapbox_token)
@@ -14,3 +15,16 @@ class Address(models.Model):
         self.lat = g[0]
         self.long = g[1]
         return super(Address, self).save(*args, **kwargs)
+    
+    def __str__(self):
+         return self.address
+    
+
+class Note(models.Model):
+    titulo = models.TextField()
+    texto = models.TextField()
+    ubic = models.ForeignKey(Address, on_delete=models.CASCADE)
+    hora = models.TimeField()
+
+    def __str__(self):
+         return self.titulo
