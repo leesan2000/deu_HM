@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'mapkick.django',
+    'deu_HM',
+    'bootstrap5',
+    'maps',
 ]
 
 MIDDLEWARE = [
