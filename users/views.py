@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login
 from .forms import RegistrationForm
 from faker import Faker
 
@@ -10,7 +12,7 @@ def register_user(request):
         if form.is_valid():
             form.save()
             # Redirect to a success page or do something else after successful registration
-            return redirect('/')
+            return redirect('/home')
     else:
         # Generar datos aleatorios con Faker para rellenar el formulario
         fake = Faker()
@@ -41,3 +43,20 @@ def register_user(request):
         form = RegistrationForm(random_data)
 
     return render(request, 'signup.html', {'form': form})
+
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/home')  # Redirigir a una página de éxito después del inicio de sesión exitoso
+            else:
+                # Manejar un intento de inicio de sesión no válido
+                return render(request, 'login.html', {'form': form, 'error': 'Nombre de usuario o contraseña incorrecta.'})
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
