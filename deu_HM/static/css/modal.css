@@ -1,0 +1,34 @@
+/* Estilos para el modal y su contenido */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro para el modal */
+    opacity: 0; /* Inicialmente, el modal está oculto */
+    transition: opacity 0.3s ease; /* Animación de transición */
+    z-index: 9999; /* Asegurar que el modal esté por encima del contenido */
+}
+
+.modal-contenido {
+    background-color: white;
+    width: 80%;
+    max-width: 400px;
+    margin: 100px auto; /* Centrar vertical y horizontalmente */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para el botón de cerrar el modal */
+#btnCerrarModal {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* Estilos para ocultar la barra de desplazamiento cuando el modal está abierto */
+body.modal-open {
+    overflow: hidden;
+}
