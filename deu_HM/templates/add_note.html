@@ -1,7 +1,7 @@
-{% block title %}Cree una nueva nota{% endblock %}
+{% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h1>Form</h1>
+    <h1>Cree una nueva nota</h1>
     <form action="{% url 'add' %}" method="post">
         {% csrf_token %}
     <div class="form-group">
