@@ -1,3 +1,5 @@
+from typing import Any, Dict
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from .models import Address
@@ -5,21 +7,34 @@ from .models import Note
 from .forms import NoteForm
 
 
-class AddressView(CreateView):
+def addNote(request):
+    submitted = False
+    form = NoteForm
+    notes = Note.objects.all()
+    if(request.method == "POST"):
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/?submitted=True')
 
-    model = Address
-    fields = ['address']
-    template_name = 'home.html'
-    success_url = '/'
+    else:
+            form = NoteForm()
+            if 'submitted' in request.GET:
+                submitted = True
+    return render(request, 'home.html', {'formu': form, 'submitted':submitted, 'notas' : notes})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['mapbox_access_token'] = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNzduejE0MDV0dDNnbjR0cDVtNnc4ciJ9.nA8U773QrxdRkRZiw8TlnA'
-        context['addresses'] = Address.objects.all()
-        return context
+
+
+
+    
+    
     
 class AddNoteView(CreateView):
     model = Note
     form_class = NoteForm
-    template_name = 'add_note.html'
-    #fields = '__all__'
+    template_name = 'notes.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['notes'] = Note.objects.all()
+        return context

@@ -1,18 +1,30 @@
 {% extends 'base.html' %}
-
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
 
 {% block content %}
 <!-- Contenido específico de la página de inicio -->
 <meta charset="utf-8">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+<link rel="stylesheet" href="{% static 'css/modal.css' %}">
 <style>
   body { margin: 0; padding: 0; }
   #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 </style>
+
 </head>
+</button>
   <body>
-      <div id="map"></div>
+      <div id="map" ></div>
           <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNnptbWtkMDNpYjNrbnoxZHltZmhtbiJ9.hDEJKjc9Cq2708RJIHigIA';
     var map = new mapboxgl.Map({
@@ -22,13 +34,32 @@
         center: [-58.381485, -34.603969], // starting position [lng, lat]
         zoom: 9 // starting zoom
     });
-    {% for address in addresses %}
+    {% for nota in notas %}
       var marker = new mapboxgl.Marker()
-      .setLngLat([{{ address.long }}, {{ address.lat }}])
-      .setPopup(new mapboxgl.Popup().setHTML("<p>{{ address.address }}</p>"))
+      .setLngLat([{{ nota.ubic.long }}, {{ nota.ubic.lat }}])
+      .setPopup(new mapboxgl.Popup().setHTML("<p>{{ nota.ubic.address }}</p>"))
       .addTo(map);
-      {% endfor %}
-</script>
-{% endblock %}
+    {% endfor %}
+    </script>
+    </body>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="container">
+            <h1>Form</h1>
+            <form action="" method=POST>
+                {% csrf_token %}
+            <div class="form-group">
+                {{ formu.as_table }}
+            </div>
+            <div class="form-group">
+                <input class="btn btn-success" type="submit" value="Submit">
+            </div>
+            </form>
+        </div>
+        </div>
+      </div>    
+    </div>
+    {% endblock %}
 
 
