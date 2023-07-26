@@ -40,11 +40,22 @@ class Note(models.Model):
     )
     fechaHora = models.DateTimeField(auto_now_add=True)
     ubic = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True)
-    entrevistado = models.BooleanField(default=False)
+    entrevista = models.BooleanField(default=False)
     autor = models.TextField(default='zzz')
-
-
-
 
     def __str__(self):
          return self.titulo
+    
+
+class Entrevistado(models.Model):
+    nombre = models.TextField()
+    apellido = models.TextField()
+    edad = models.TextField()
+    profesion = models.TextField()
+    notaAsoc = models.ForeignKey(Note, on_delete=models.SET_NULL, blank=True, null=True)
+    fechaEntr = models.DateTimeField(blank=True)
+
+    def __str__(self):
+        return self.nombre
+    
+    

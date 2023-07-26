@@ -5,14 +5,14 @@ from .models import Address
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = {'user', 'titulo', 'texto', 'ubic', 'entrevistado', 'autor', 'tipo'}
+        fields = {'user', 'titulo', 'texto', 'ubic', 'entrevista', 'autor', 'tipo'}
 
         widgets = {
             
             'titulo': forms.TextInput(attrs={'class': 'form-control'}),
             'texto' : forms.Textarea(attrs={'class': 'form-control','rows':6,'cols':40,'style':'resize:none;'}),
             'ubic' : forms.Select(attrs={'class':'form-control'}),
-            'entrevistado' : forms.NullBooleanSelect(),
+            'entrevista' : forms.NullBooleanSelect(),
             'autor' : forms.TextInput(attrs={'class':'form-control'}),
             'tipo': forms.Select(attrs={'class':'form-control'})
         }
