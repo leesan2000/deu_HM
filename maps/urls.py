@@ -11,4 +11,5 @@ urlpatterns = [
     path('notes', AddNoteView.as_view(), name='notes'),
     path('addresses', views.create, name='create'),
     path('get_notas/', views.get_notas, name='get_notas'),
+    path('addresses', AddAddress.as_view(), name='addresses')
 ]

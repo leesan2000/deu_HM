@@ -22,4 +22,4 @@ class NoteForm(forms.ModelForm):
             self.fields['user'].disabled = True
 
 class AddressForm(forms.Form):
-    address = forms.CharField(max_length=200)
+    direccion = forms.CharField(max_length=200)

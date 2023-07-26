@@ -33,10 +33,10 @@ def get_notas(request):
             'long': nota.ubic.long,
             'titulo': nota.titulo,
             'texto': nota.texto,
+            'nroVisita' : nota.nroVisita,
+            'tipo' : nota.tipo
         })
     return JsonResponse(data, safe=False)
-
-
 
 
     
@@ -59,6 +59,7 @@ class AddAddress(CreateView):
 
      def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['ubics'] = Address.objects.all()
         return context
      
      
