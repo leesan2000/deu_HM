@@ -7,40 +7,22 @@
 {% block content %}
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+<link rel="stylesheet" href="{% static 'css/new_address.css' %}">
 
-<h1>Agregue una direccion al sistema</h1>
-
-    <div class="container">
-        <form action="" method="post">
-            {% csrf_token %}
-            {{ formulario.as_table }}
-        </div>        <br>
-        <div class="form-group">
-            <input class="btn btn-success" type="submit" value="Submit">
-        </div>
-    </div>
+<h1>
+    <a href="new_address">
+        <button class="button-40" style="margin-top: 50px; margin-left: 50px; margin-bottom: 30px;" role="button">Agregar ubicacion</button>
+    </a>
 </h1>
 
-<div class="container">
-    <form action="/create/" method="post">
-        {% csrf_token %}
-    <div class="form-group">
-        {{ formAdd.as_p }}
-    </div>
-    <div class="form-group">
-    <br>
-</div>
-</div>
 
-<h1>Ubicaciones</h1>
+<h1 style="margin-bottom: 20px; margin-left: 50px;">Ubicaciones</h1>
 
 <div class="container">
 <div class="col-md-12">
     {% for ubic in ubics %}
         <div class="card b-1 hover-shadow mb-20 mr-50 ml-50">
             <div class="media card-body">
-                <p>{{ubic.address}}</p>
-
                 <div class="media-left pr-12">
                     <img class="avatar avatar-xl no-radius" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="...">
                 </div>
@@ -48,10 +30,8 @@
                     <div class="mb-2">
                         <span class="fs-20 pr-16">{{ubic.address}}</span>
                     </div>
-                    <small class="fs-16 fw-300 ls-1">Autor: {{ubic.lat}}</small>
-                </div>
-                <div class="media-right text-right d-none d-md-block">
-                    <p class="fs-14 text-fade mb-12"><i class="fa fa-map-marker pr-1"></i>{{ubic.long}}</p>
+                    <small class="fs-16 fw-300 ls-1">Latitud: {{ubic.lat}} - </small>
+                    <small class="fs-16 fw-300 ls-1">Longitud: {{ubic.long}}</small>
                 </div>
             </div>
             <footer class="card-footer flexbox align-items-center">
@@ -65,6 +45,7 @@
     <br>
 </div>
 </div>
+
 
 {% endblock %}
 

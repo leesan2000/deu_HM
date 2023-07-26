@@ -52,15 +52,6 @@ class AddNoteView(CreateView):
         context['notes'] = Note.objects.all()
         return context
     
-class AddAddress(CreateView):
-     model = Address
-     form_class = AddressForm
-     template_name = "addresses.html"
-
-     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['ubics'] = Address.objects.all()
-        return context
      
      
 def addAddress(request):
@@ -73,7 +64,7 @@ def addAddress(request):
         else:
             form2 = AddressForm()
 
-    return render(request, 'addresses.html', {'formAdd': form2})
+    return render(request, 'new_address.html', {'formAdd': form2})
 
 def create(response):
     if(response.method == "POST"):
@@ -84,4 +75,9 @@ def create(response):
             a.save()
     else:
         form = AddressForm()
-    return render(response, "addresses.html", {"formulario" : form})
+    return render(response, "new_address.html", {"formulario" : form})
+
+def get_ubics(request):
+    elementos = Address.objects.all()
+    return render(request, 'addresses.html', {'ubics': elementos})
+    
