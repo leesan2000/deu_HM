@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+
+{% block content %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/notes.css' %}">
+
+<h1>Direcciones
+
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ formulario.as_table }}
+        </div>
+        <div class="form-group">
+        <br>
+    </div>
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" value="Submit">
+    </div>
+</h1>
+
+<div class="container">
+    <form action="/create/" method="post">
+        {% csrf_token %}
+    <div class="form-group">
+        {{ formAdd.as_p }}
+    </div>
+    <div class="form-group">
+    <br>
+</div>
+</div>
+
+{% endblock %}
+
+
+
+

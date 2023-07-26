@@ -25,9 +25,19 @@ class Address(models.Model):
 CustomUser = get_user_model()
 
 class Note(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, default=CustomUser)
+    OPCIONES = (
+        ('opcion1', 'Cultivo'),
+        ('opcion2', 'Terreno'),
+        ('opcion3', 'Rio'),
+    )
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=CustomUser)
     titulo = models.TextField()
     texto = models.TextField()
+    nroVisita = models.AutoField(primary_key=True)
+    tipo = models.CharField(
+        choices=OPCIONES,
+        max_length=25
+    )
     fechaHora = models.DateTimeField(auto_now_add=True)
     ubic = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True)
     entrevistado = models.BooleanField(default=False)
