@@ -41,19 +41,20 @@ def get_notas(request):
     return JsonResponse(data, safe=False)
 
 def addEnt(request):
-    submitted = False
+    submitted2 = False
+    formEnt = EntForm()
     entr = Entrevistado
     if(request.method == "POST"):
         entr = EntForm(request.POST)
-        if form.is_valid():
-            form.save()
+        if formEnt.is_valid():
+            formEnt.save()
             return HttpResponseRedirect('/?submittedEnt=True')
         
     else:
-            form = EntForm
-            if 'submitted' in request.GET:
-                submitted=True
-    return render(request, 'new_ent.html', {'formEnt' : form, 'submitted' : submitted})
+            formEnt = EntForm()
+            if 'submittedEnt' in request.GET:
+                submitted2=True
+    return render(request, 'new_ent.html', {'formEnt' : formEnt, 'submitted' : submitted2})
 
 
     

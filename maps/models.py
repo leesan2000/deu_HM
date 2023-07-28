@@ -53,7 +53,7 @@ class Entrevistado(models.Model):
     edad = models.TextField()
     profesion = models.TextField()
     notaAsoc = models.ForeignKey(Note, on_delete=models.SET_NULL, blank=True, null=True)
-    fechaEntr = models.DateTimeField(blank=True)
+    fechaEntr = models.DateField(blank=True)
 
     def __str__(self):
         return self.nombre
