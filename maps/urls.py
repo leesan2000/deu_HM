@@ -10,5 +10,6 @@ urlpatterns = [
     path('notes', AddNoteView.as_view(), name='notes'),
     path('new_address', views.create, name='create'),
     path('get_notas/', views.get_notas, name='get_notas'),
-    path('addresses', views.get_ubics, name='get_ubics')
+    path('addresses', views.get_ubics, name='get_ubics'),
+    path('new_ent', views.addEnt, name='createEnt'),
 ]

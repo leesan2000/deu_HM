@@ -4,8 +4,10 @@ from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from .models import Address
 from .models import Note
+from .models import Entrevistado
 from .forms import NoteForm
 from .forms import AddressForm
+from .forms import EntForm
 
 
 def addNote(request):
@@ -37,6 +39,21 @@ def get_notas(request):
             'tipo' : nota.tipo
         })
     return JsonResponse(data, safe=False)
+
+def addEnt(request):
+    submitted = False
+    entr = Entrevistado
+    if(request.method == "POST"):
+        entr = EntForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/?submittedEnt=True')
+        
+    else:
+            form = EntForm
+            if 'submitted' in request.GET:
+                submitted=True
+    return render(request, 'new_ent.html', {'formEnt' : form, 'submitted' : submitted})
 
 
     

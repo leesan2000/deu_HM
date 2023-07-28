@@ -8,9 +8,11 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/notes.css' %}">
 
-<h1>Notas</h1>
 
 <div class="container">
+    <h1 style="margin-bottom: 20px; margin-left: 50px;">Notas</h1>
+</div>
+
 <div class="col-md-12">
     {% for note in notes %}
         <div class="card b-1 hover-shadow mb-20 mr-50 ml-50">
@@ -31,7 +33,7 @@
             <footer class="card-footer flexbox align-items-center">
                 <div>
                     <strong>Publicada el:</strong>
-                    <span>{{nota.fechaHora}}</span>
+                    <span>{{note.fechaHora}}</span>
                 </div>
             </footer>
         </div>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+</head>
+<div class="container">
+    <h1>Agregue un entrevistado</h1>
+    <form action="" method=POST>
+        {% csrf_token %}
+    <div class="form-group">
+        {{ formEnt.as_p }}
+    </div>
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" value="Submit">
+    </div>
+    </form>
+
+{% endblock %}
