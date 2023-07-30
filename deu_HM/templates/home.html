@@ -76,9 +76,13 @@
     .then(data => {
         data.forEach(nota => {
             // Agrega el marcador al mapa
+            
+            var popup = new mapboxgl.Popup({ closeOnClick: true }, {offset: 50})
+          .setHTML(`<h3>${nota.titulo}</h3><p>${nota.autor} | ${nota.tipo}</p><a data-target="#myModal" data-toggle="modal" href="#">Agregar nota en ubicacion actual</a></p>`);
+
             const marker = new mapboxgl.Marker()
                 .setLngLat([nota.long, nota.lat])
-                .setPopup(new mapboxgl.Popup().setHTML(`<h3>${nota.titulo}</h3><p>${nota.texto}</p>`))
+                .setPopup(popup)     
                 .addTo(map);
         });
     })
@@ -105,6 +109,22 @@
         </div>
       </div>    
     </div>
+
+    <script>
+      $(document).ready(function() {
+          // Cuando el valor del campo booleano cambia
+          $("#id_entrevista").change(function() {
+              // Obtener el valor actual del campo booleano (true o false)
+              var valorHayEntrevista = $(this).is(":checked");
+              
+              // Habilitar o deshabilitar el campo de fecha según el valor del campo booleano
+              $("#id_fecha_entrevista").prop("disabled", !valorHayEntrevista);
+          });
+          
+          // Verificar el valor inicial del campo booleano al cargar la página
+          $("#id_entrevista").trigger("change");
+      });
+      </script>
     {% endblock %}
 
 

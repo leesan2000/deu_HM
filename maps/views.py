@@ -36,25 +36,26 @@ def get_notas(request):
             'titulo': nota.titulo,
             'texto': nota.texto,
             'nroVisita' : nota.nroVisita,
-            'tipo' : nota.tipo
+            'tipo' : nota.tipo,
+            'autor': nota.autor
         })
     return JsonResponse(data, safe=False)
 
+
 def addEnt(request):
-    submitted2 = False
-    formEnt = EntForm()
-    entr = Entrevistado
+    submitted = False
+    form2 = EntForm
     if(request.method == "POST"):
-        entr = EntForm(request.POST)
-        if formEnt.is_valid():
-            formEnt.save()
-            return HttpResponseRedirect('/?submittedEnt=True')
-        
+        form2 = EntForm(request.POST)
+        if form2.is_valid():
+            form2.save()
+            return HttpResponseRedirect('/?submitted=True')
+
     else:
-            formEnt = EntForm()
-            if 'submittedEnt' in request.GET:
-                submitted2=True
-    return render(request, 'new_ent.html', {'formEnt' : formEnt, 'submitted' : submitted2})
+            form = EntForm()
+            if 'submitted' in request.GET:
+                submitted = True
+    return render(request, 'new_ent.html', {'formEnt': form2, 'submitted':submitted})
 
 
     

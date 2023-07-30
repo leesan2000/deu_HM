@@ -21,8 +21,21 @@
     </div>
     <div class="form-group">
         <input class="btn btn-success" type="submit" value="Agregar">
-        
+
     </div>
     </form>
+
+    {% if formEnt.errors %}
+    <div class="alert alert-danger">
+        <strong>Error(es) de validación:</strong>
+        <ul>
+            {% for field in formEnt %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
 
 {% endblock %}

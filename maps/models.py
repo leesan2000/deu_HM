@@ -8,6 +8,7 @@ mapbox_token = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNzduejE0MDV0dDNnbjR0cDVtNnc4c
     
 
 class Address(models.Model):
+    nombre = models.TextField()
     address = models.TextField()
     lat = models.FloatField(blank=True, null=True)
     long = models.FloatField(blank=True, null=True)
@@ -26,9 +27,9 @@ CustomUser = get_user_model()
 
 class Note(models.Model):
     OPCIONES = (
-        ('opcion1', 'Cultivo'),
-        ('opcion2', 'Terreno'),
-        ('opcion3', 'Rio'),
+        ('Cultivo', 'Cultivo'),
+        ('Terreno', 'Terreno'),
+        ('Rio', 'Rio'),
     )
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=CustomUser)
     titulo = models.TextField()
@@ -41,6 +42,7 @@ class Note(models.Model):
     fechaHora = models.DateTimeField(auto_now_add=True)
     ubic = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True)
     entrevista = models.BooleanField(default=False)
+    fechaEntr = models.DateField(blank=True)
     autor = models.TextField(default='zzz')
 
     def __str__(self):
@@ -52,10 +54,10 @@ class Entrevistado(models.Model):
     apellido = models.TextField()
     edad = models.TextField()
     profesion = models.TextField()
-    notaAsoc = models.ForeignKey(Note, on_delete=models.SET_NULL, blank=True, null=True)
-    fechaEntr = models.DateField(blank=True)
+    fechaEntr = models.DateField()
 
     def __str__(self):
-        return self.nombre
+         return self.nombre
+
     
     
