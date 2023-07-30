@@ -8,8 +8,9 @@ from .models import Entrevistado
 from .forms import NoteForm
 from .forms import AddressForm
 from .forms import EntForm
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def addNote(request):
     submitted = False
     form = NoteForm
@@ -25,6 +26,7 @@ def addNote(request):
             if 'submitted' in request.GET:
                 submitted = True
     return render(request, 'home.html', {'formu': form, 'submitted':submitted, 'notes' : notes})
+
 
 def get_notas(request):
     notas = Note.objects.all()
@@ -58,21 +60,18 @@ def addEnt(request):
     return render(request, 'new_ent.html', {'formEnt': form2, 'submitted':submitted})
 
 
-    
-    
-    
 class AddNoteView(CreateView):
     model = Note
     form_class = NoteForm
     template_name = 'notes.html'
+    success_url = '/'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['notes'] = Note.objects.all()
         return context
     
-     
-     
+  
 def addAddress(request):
     form2 = AddressForm()
     if(request.method == "POST"):
@@ -85,6 +84,7 @@ def addAddress(request):
 
     return render(request, 'new_address.html', {'formAdd': form2})
 
+
 def create(response):
     if(response.method == "POST"):
         form = AddressForm(response.POST)
@@ -95,6 +95,7 @@ def create(response):
     else:
         form = AddressForm()
     return render(response, "new_address.html", {"formulario" : form})
+
 
 def get_ubics(request):
     elementos = Address.objects.all()

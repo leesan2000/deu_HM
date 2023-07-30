@@ -25,7 +25,7 @@
          <span class="tooltip">Search</span>
       </li>
       <li>
-        <a href="home">
+        <a href="{% url 'home' %}">
           <i class='bx bx-home'></i>
           <span class="links_name">Home</span>
         </a>
@@ -39,21 +39,21 @@
        <span class="tooltip">Mi Perfil</span>
      </li>
      <li>
-       <a href="notes">
+       <a href="{% url 'notes' %}">
          <i class='bx bx-chat' ></i>
          <span class="links_name">Notas</span>
        </a>
        <span class="tooltip">Notas</span>
      </li>
      <li>
-      <a href="addresses">
+      <a href="{% url 'get_ubics' %}">
         <i class='bx bx-map-pin' ></i>
         <span class="links_name">Administrar ubicaciones</span>
       </a>
       <span class="tooltip">Administrar ubicaciones</span>
     </li>
      <li>
-      <a href="new_ent" >
+      <a href="{% url 'createEnt' %}" >
         <i class='bx bx-user-plus' ></i>
         <span class="links_name">Agregar investigador</span>
       </a>
@@ -66,7 +66,7 @@
           <div class="name">{{ request.user.username }}</div>
           <div class="job">{{ request.user.role }}</div>
           <a href="{% url 'logout' %}"><i class='bx bx-log-out' id="log_out"></i></a>
-     </li>
+        </li>
 
   </div>
     </ul>

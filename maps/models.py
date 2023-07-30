@@ -21,7 +21,7 @@ class Address(models.Model):
         return super(Address, self).save(*args, **kwargs)
     
     def __str__(self):
-         return self.address
+        return self.address
     
 CustomUser = get_user_model()
 
@@ -46,7 +46,7 @@ class Note(models.Model):
     autor = models.TextField(default='zzz')
 
     def __str__(self):
-         return self.titulo
+        return self.titulo
     
 
 class Entrevistado(models.Model):
@@ -57,7 +57,7 @@ class Entrevistado(models.Model):
     fechaEntr = models.DateField()
 
     def __str__(self):
-         return self.nombre
+        return self.nombre
 
     
     
