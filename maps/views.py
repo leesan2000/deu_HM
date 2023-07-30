@@ -9,6 +9,9 @@ from .forms import NoteForm
 from .forms import AddressForm
 from .forms import EntForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.shortcuts import redirect
 
 @login_required
 def addNote(request):
@@ -27,7 +30,7 @@ def addNote(request):
                 submitted = True
     return render(request, 'home.html', {'formu': form, 'submitted':submitted, 'notes' : notes})
 
-
+@login_required
 def get_notas(request):
     notas = Note.objects.all()
     data = []
@@ -43,7 +46,7 @@ def get_notas(request):
         })
     return JsonResponse(data, safe=False)
 
-
+@login_required
 def addEnt(request):
     submitted = False
     form2 = EntForm
@@ -59,8 +62,15 @@ def addEnt(request):
                 submitted = True
     return render(request, 'new_ent.html', {'formEnt': form2, 'submitted':submitted})
 
+class LoginRequiredMixin(LoginRequiredMixin):
+    login_url = reverse_lazy('login')  # URL de la vista de inicio de sesión
+    redirect_field_name = None
 
-class AddNoteView(CreateView):
+    def handle_no_permission(self):
+        return redirect(self.login_url)
+
+
+class AddNoteView(LoginRequiredMixin, CreateView):
     model = Note
     form_class = NoteForm
     template_name = 'notes.html'
@@ -70,8 +80,8 @@ class AddNoteView(CreateView):
         context = super().get_context_data(**kwargs)
         context['notes'] = Note.objects.all()
         return context
-    
-  
+
+
 def addAddress(request):
     form2 = AddressForm()
     if(request.method == "POST"):
@@ -84,7 +94,7 @@ def addAddress(request):
 
     return render(request, 'new_address.html', {'formAdd': form2})
 
-
+@login_required
 def create(response):
     if(response.method == "POST"):
         form = AddressForm(response.POST)
@@ -96,7 +106,7 @@ def create(response):
         form = AddressForm()
     return render(response, "new_address.html", {"formulario" : form})
 
-
+@login_required
 def get_ubics(request):
     elementos = Address.objects.all()
     return render(request, 'addresses.html', {'ubics': elementos})
