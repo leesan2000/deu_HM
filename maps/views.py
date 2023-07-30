@@ -1,6 +1,6 @@
 from typing import Any, Dict
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import CreateView
 from .models import Address
 from .models import Note
@@ -71,7 +71,11 @@ class AddNoteView(CreateView):
         context['notes'] = Note.objects.all()
         return context
     
-  
+def detalle_objeto(request, note_id):
+    note = get_object_or_404(Note, id=note_id)
+    return render(request, 'det_nota.html', {'nota': note})  
+
+
 def addAddress(request):
     form2 = AddressForm()
     if(request.method == "POST"):

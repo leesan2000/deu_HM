@@ -6,7 +6,7 @@ from .models import Entrevistado
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = {'user', 'titulo', 'texto', 'ubic', 'entrevista', 'fechaEntr', 'autor', 'tipo'}
+        fields = {'user', 'titulo', 'texto', 'ubic', 'entrevista', 'fechaEntr', 'entrevistado', 'autor', 'tipo'}
 
         widgets = {
             
@@ -15,7 +15,8 @@ class NoteForm(forms.ModelForm):
             'ubic' : forms.Select(attrs={'class':'form-control'}),
             'fechaEntr' : forms.DateInput(attrs={'type': 'date'}),
             'autor' : forms.TextInput(attrs={'class':'form-control'}),
-            'tipo': forms.Select(attrs={'class':'form-control'})
+            'tipo': forms.Select(attrs={'class':'form-control'}),
+            'entrevistado': forms.Select(attrs={'class':'form-control'})
         }
 
         labels = {
@@ -24,12 +25,14 @@ class NoteForm(forms.ModelForm):
             'ubic': 'Ubicacion',
             'entrevista': '¿Incluye una entrevista?',
             'autor': 'Autor',
-            'tipo': 'Tipo de ubicacion'
+            'tipo': 'Tipo de ubicacion',
+            'entrevistado': 'Persona entrevistada'
         }
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.fields['user'].disabled = True
+            self.fields["entrevistado"].widget.attrs["readonly"] = True
 
 
 class AddressForm(forms.Form):
