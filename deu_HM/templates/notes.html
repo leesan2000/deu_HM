@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+
+{% block content %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/notes.css' %}">
+
+
+<div class="container">
+    <h1 style="margin-bottom: 20px; margin-left: 50px; padding-top: 20px;">Notas</h1>
+</div>
+
+<div class="col-md-12">
+    {% for note in notes %}
+        <div class="card b-1 hover-shadow mb-20 mr-50 ml-50">
+            <div class="media card-body">
+                <div class="media-left pr-12">
+                    <img class="avatar avatar-xl no-radius" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="...">
+                </div>
+                <div class="media-body">
+                    <div class="mb-2">
+                        <span class="fs-20 pr-16">{{note.titulo}}</span>
+                    </div>
+                    <small class="fs-16 fw-300 ls-1">Autor: {{note.user}}</small>
+                </div>
+                <div class="media-right text-right d-none d-md-block">
+                    <p class="fs-14 text-fade mb-12"><i class="fa fa-map-marker pr-1"></i>{{note.ubic}}</p>
+                </div>
+            </div>
+            <footer class="card-footer flexbox align-items-center">
+                <div>
+                    <strong>Publicada el:</strong>
+                    <span>{{note.fechaHora}}</span>
+                </div>
+            </footer>
+        </div>
+    {% endfor %}
+    <br>
+</div>
+</div>
+
+{% endblock %}
+
+
+
+

@@ -6,101 +6,80 @@
   <meta charset="UTF-8">
   <title> Home </title>
   <link rel="stylesheet" href='{% static "css/home.css" %}'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <!-- Boxicons CDN Link -->
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<div class="sidebar">
-  <div class="logo-details">
-    <i class='bx bxl-c-plus-plus icon'></i>
-    <div class="logo_name">CodingLab</div>
-    <i class='bx bx-menu' id="btn"></i>
-  </div>
-  <ul class="nav-list">
-    <li>
-      <i class='bx bx-search'></i>
-      <input type="text" placeholder="Search...">
-      <span class="tooltip">Search</span>
-    </li>
-    <li>
-      <a href="home">
-        <i class='bx bx-grid-alt'></i>
-        <span class="links_name">Home</span>
+  <div class="sidebar">
+    <div class="logo-details">
+      <i class='bx bxl-c-plus-plus icon'></i>
+        <div class="logo_name">CodingLab</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+          <i class='bx bx-search' ></i>
+         <input type="text" placeholder="Search...">
+         <span class="tooltip">Search</span>
+      </li>
+      <li>
+        <a href="home">
+          <i class='bx bx-home'></i>
+          <span class="links_name">Home</span>
+        </a>
+         <span class="tooltip">Home</span>
+      </li>
+      <li>
+       <a href="#">
+         <i class='bx bx-user' ></i>
+         <span class="links_name">Mi Perfil</span>
+       </a>
+       <span class="tooltip">Mi Perfil</span>
+     </li>
+     <li>
+       <a href="notes">
+         <i class='bx bx-chat' ></i>
+         <span class="links_name">Notas</span>
+       </a>
+       <span class="tooltip">Notas</span>
+     </li>
+     <li>
+      <a href="addresses">
+        <i class='bx bx-map-pin' ></i>
+        <span class="links_name">Administrar ubicaciones</span>
       </a>
-      <span class="tooltip">Home</span>
+      <span class="tooltip">Administrar ubicaciones</span>
     </li>
-    <li>
-      <a href="add">
-        <i class='bx bx-user'></i>
-        <span class="links_name">User</span>
+     <li>
+      <a href="new_ent" >
+        <i class='bx bx-user-plus' ></i>
+        <span class="links_name">Agregar investigador</span>
       </a>
-      <span class="tooltip">User</span>
+      <span class="tooltip">Agregar investigador</span>
     </li>
-    <li>
-      <a href="#">
-        <i class='bx bx-chat'></i>
-        <span class="links_name">Messages</span>
-      </a>
-      <span class="tooltip">Messages</span>
-    </li>
-    <li>
-      <a href="#">
-        <i class='bx bx-pie-chart-alt-2'></i>
-        <span class="links_name">Analytics</span>
-      </a>
-      <span class="tooltip">Analytics</span>
-    </li>
-    <li>
-      <a href="#">
-        <i class='bx bx-folder'></i>
-        <span class="links_name">File Manager</span>
-      </a>
-      <span class="tooltip">Files</span>
-    </li>
-    <li>
-      <a href="#">
-        <i class='bx bx-cart-alt'></i>
-        <span class="links_name">Order</span>
-      </a>
-      <span class="tooltip">Order</span>
-    </li>
-    <li>
-      <a href="#">
-        <i class='bx bx-heart'></i>
-        <span class="links_name">Saved</span>
-      </a>
-      <span class="tooltip">Saved</span>
-    </li>
-    <li>
-      <a href="#">
-        <i class='bx bx-cog'></i>
-        <span class="links_name">Setting</span>
-      </a>
-      <span class="tooltip">Setting</span>
-    </li>
-    <li class="profile">
+     <li class="profile">
       <div class="profile-details">
         <img src="{{ request.user.profile_picture.url }}" alt="profileImg">
         <div class="name_job">
           <div class="name">{{ request.user.username }}</div>
           <div class="job">{{ request.user.role }}</div>
-        </div>
-      </div>
-      <a href="{% url 'logout' %}"><i class='bx bx-log-out' id="log_out"></i></a>
-    </li>
-  </ul>
+          <a href="{% url 'logout' %}"><i class='bx bx-log-out' id="log_out"></i></a>
+     </li>
+
+  </div>
+    </ul>
+  </div>
+  <section class="home-section">
+      {% block content %}
+      {% endblock %}
+  </section>
 </div>
-<section class="home-section">
-  {% block content %}
-  {% endblock %}
-</section>
 </body>
-
-
-
-
-<script>
+  
+  
+  <script>
   let sidebar = document.querySelector(".sidebar");
   let closeBtn = document.querySelector("#btn");
   let searchBtn = document.querySelector(".bx-search");

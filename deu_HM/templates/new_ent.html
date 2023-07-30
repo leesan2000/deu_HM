@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<div class="container">
+    <h1 style="padding-top: 20px;">Agregue un entrevistado</h1>
+    
+    <form action="" method="post" style="padding-top: 20px;">
+        {% csrf_token %}
+    <div class="form-group">
+        {{ formEnt.as_p }}
+    </div>
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" value="Agregar">
+
+    </div>
+    </form>
+
+    {% if formEnt.errors %}
+    <div class="alert alert-danger">
+        <strong>Error(es) de validación:</strong>
+        <ul>
+            {% for field in formEnt %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% endblock %}
