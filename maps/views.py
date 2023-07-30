@@ -81,7 +81,7 @@ class AddNoteView(LoginRequiredMixin, CreateView):
         context['notes'] = Note.objects.all()
         return context
 
-
+@login_required
 def addAddress(request):
     form2 = AddressForm()
     if(request.method == "POST"):
