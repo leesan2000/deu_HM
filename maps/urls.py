@@ -4,6 +4,6 @@ from .views import AddNoteView
 
 
 urlpatterns = [
-    path('home', AddressView.as_view(), name='home'),
-    path('add', AddNoteView.as_view(), name='add'),
+    path('home/', AddressView.as_view(), name='home'),
+    path('add/', AddNoteView.as_view(), name='add'),
 ]

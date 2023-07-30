@@ -1,9 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
-<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Home </title>
+    <title> DEU - HM </title>
     <link rel="stylesheet" href='{% static "css/nav.css" %}'>
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
@@ -13,23 +13,21 @@
         <body>
             <nav>
                 <div class="navbar">
-                  <div class="logo"><a href="#">CodingLab</a></div>
+                  <div class="logo"><a href="/">DEU - HM</a></div>
                   <ul class="menu">
-                    <li><a href="#Home">Home</a></li>
-                    <li><a href="#About">About</a></li>
-                    <li><a href="#Category">Category</a></li>
-                    <li><a href="#Contact">Contact</a></li>
-                    <li><a href="#Feedback">Feedback</a></li>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="#About">Acerca de</a></li>
+                    <li><a href="{% url 'signup' %}">Registrate</a></li>
                   </ul>
                 </div>
               </nav>
-              <section id="Home">Home Section</section>
+              {% comment %} <section id="Home">Home Section</section>
               <section id="About">About Section</section>
               <section id="Category">Category Section</section>
               <section id="Contact">Contact Section</section>
-              <section id="Feedback">Feedback Section</section>
-              <div class="button">
+              <section id="Feedback">Feedback Section</section> {% endcomment %}
+              {% comment %} <div class="button">
                 <a href="#Home"><i class="fas fa-arrow-up"></i></a>
-              </div>
+              </div> {% endcomment %}
             </body> 
         

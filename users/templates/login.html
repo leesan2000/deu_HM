@@ -1,9 +1,98 @@
-<h1>Iniciar sesión</h1>
-    {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Iniciar sesión</button>
-    </form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEU - HM</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+
+<body class="overflow-hidden">
+
+
+    <div class="container-fluid px-4 px-md-5 vh-100 overflow-hidden">
+        <div class="row gx-lg-5 align-items-center text-center text-lg-start m-0 p-0 vh-100">
+            <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                    Bienvenido de nuevo <br><span style="color: hsl(218, 81%, 75%)">Inicia Sesión</span><br />
+                </h1>
+                <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+                    No tienes una cuenta? <a href="{% url 'signup' %}" style="color: hsl(218, 81%, 95%)">Registrate</a>
+                </p>
+            </div>
+
+            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                <div class="position-absolute rounded-circle shadow-5-strong"></div>
+                <div class="position-absolute shadow-5-strong"></div>
+
+                <div class="card bg-glass" style="border-radius: 2rem;">
+                    <div class="card-body px-4 py-5 px-md-5">
+                        {{ form.media }}
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <!-- Username -->
+                            <div class="form-outline mt-2 mb-4">
+                                <label class="form-label" for="username">Usuario</label>
+                                {{ form.usernameLogin }}
+                                <!-- <input class="form-control" type="text" id="username" name="username"
+                                    placeholder="Ingrese su usuario..." required> -->
+                            </div>
+
+                            <!-- Password -->
+                            <div class="form-outline mt-2 mb-4">
+                                <label class="form-label" for="password">Contraseña</label>
+                                {{ form.password }}
+                                <!-- <input class="form-control" type="password" id="password" name="password"
+                                    placeholder="Ingrese su contraseña..." required> -->
+                            </div>
+
+                            <!-- 2 column grid layout for inline styling -->
+                            <div class="row mb-4">
+                                <div class="col d-flex justify-content-center">
+                                    <!-- Checkbox -->
+                                    <div class="form-check">
+                                        {{ form.remember_me }}
+                                        <label class="form-check-label"
+                                            for="{{ form.remember_me.id_for_label }}">Recuerdame </label>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <!-- Simple link -->
+                                    <a href="#!">Forgot password?</a>
+                                </div>
+                            </div>
+
+                            {% if error_message %}
+                            <div class="alert alert-danger alert-dismissible fade show mt-3 mb-0" role="alert">
+                                {{ error_message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            {% endif %}
+
+
+
+                            <!-- Submit button -->
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Iniciar Sesión
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

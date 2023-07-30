@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import RegistrationForm
 from faker import Faker
+from .forms import CustomLoginForm
+from django.conf import settings
+from datetime import timedelta
+
 
 # Create your views here.
 
@@ -10,33 +14,40 @@ def register_user(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            # Redirect to a success page or do something else after successful registration
+            if request.user.is_authenticated:
+                logout(request)
+
+            user = form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+
             return redirect('/home')
     else:
         # Generar datos aleatorios con Faker para rellenar el formulario
         fake = Faker()
+        fake_first_name = fake.first_name()
+        fake_last_name = fake.last_name()
         fake_username = fake.user_name()
         fake_email = fake.email()
-        fake_full_name = fake.name()
         fake_date_of_birth = fake.date_of_birth()
         fake_phone_number = fake.phone_number()
-        fake_address = fake.address()
-        fake_gender = fake.random_element(['M', 'F', 'O'])
-        fake_profile_picture = None  # Puedes definir una imagen predeterminada o dejarla en blanco
+        fake_gender = fake.random_element(['H', 'M', 'O'])  
 
         # Crear un diccionario con los datos generados aleatoriamente
         random_data = {
+            'first_name': fake_first_name,
+            'last_name': fake_last_name,
             'username': fake_username,
             'email': fake_email,
-            'password1': 'password123',  # Puedes usar una contraseña predeterminada o generar una aleatoria
-            'password2': 'password123',  # Asegúrate de que coincida con el campo anterior
-            'full_name': fake_full_name,
+            'password1': 'bocajuniors123',  
+            'password2': 'bocajuniors123',  
             'date_of_birth': fake_date_of_birth,
             'phone_number': fake_phone_number,
-            'address': fake_address,
             'gender': fake_gender,
-            'profile_picture': fake_profile_picture,
         }
 
         # Crea el formulario con los datos generados aleatoriamente y pásalo a la plantilla
@@ -46,17 +57,32 @@ def register_user(request):
 
 def user_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
+        form = CustomLoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+            username = form.cleaned_data['usernameLogin']
+            password = form.cleaned_data['password']
+            remember_me = form.cleaned_data['remember_me']
+
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/home')  # Redirigir a una página de éxito después del inicio de sesión exitoso
+                if not remember_me:
+                    request.session.set_expiry(0)
+                else:
+                    
+                    request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+                return redirect('home')
             else:
-                # Manejar un intento de inicio de sesión no válido
-                return render(request, 'login.html', {'form': form, 'error': 'Nombre de usuario o contraseña incorrecta.'})
+                
+                error_message = "Nombre de usuario o contraseña incorrectos."
+                return render(request, 'login.html', {'form': form, 'error_message': error_message})
+        else:
+            
+            return render(request, 'login.html', {'form': form})
     else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+        form = CustomLoginForm()
+        return render(request, 'login.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    return redirect('/')
