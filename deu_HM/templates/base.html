@@ -15,7 +15,7 @@
 <div class="sidebar">
   <div class="logo-details">
     <i class='bx bxl-c-plus-plus icon'></i>
-    <div class="logo_name">CodingLab</div>
+    <div class="logo_name">DEU - HM</div>
     <i class='bx bx-menu' id="btn"></i>
   </div>
   <ul class="nav-list">
@@ -48,24 +48,32 @@
     <li>
       <a href="{% url 'get_ubics' %}">
         <i class='bx bx-map-pin'></i>
-        <span class="links_name">Administrar ubicaciones</span>
+        <span class="links_name"> Ubicaciones</span>
       </a>
-      <span class="tooltip">Administrar ubicaciones</span>
+      <span class="tooltip">Ubicaciones</span>
     </li>
+
     <li>
       <a href="{% url 'createEnt' %}">
         <i class='bx bx-user-plus'></i>
-        <span class="links_name">Agregar investigador</span>
+        <span class="links_name">Agregar entrevistado</span>
       </a>
-      <span class="tooltip">Agregar investigador</span>
+      <span class="tooltip">Agregar entrevistado</span>
     </li>
+
     <li class="profile">
       <div class="profile-details">
         <img src="{{ request.user.profile_picture.url }}" alt="profileImg">
         <div class="name_job">
           <div class="name">{{ request.user.username }}</div>
-          <div class="job">{{ request.user.role }}</div>
-          <a href="{% url 'logout' %}"><i class='bx bx-log-out' id="log_out"></i></a>
+          <div class="job">
+            {% if request.user.role == "v" %}
+              Espectador
+            {% else %}
+              Investigador
+            {% endif %}
+          </div>          
+          <a href="{% url 'logout' %}" class="log_out"><i class='bx bx-log-out' id="log_out"></i></a>
     </li>
 
 </div>

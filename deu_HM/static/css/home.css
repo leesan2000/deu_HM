@@ -223,6 +223,10 @@
   background: none;
 }
 
+.sidebar .profile #log_out:hover {
+  color: #E4E9F7; /* Cambiamos el fondo a negro */
+}
+
 .home-section{
   position: relative;
   background: #E4E9F7;
