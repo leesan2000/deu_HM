@@ -8,6 +8,15 @@ mapbox_token = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNzduejE0MDV0dDNnbjR0cDVtNnc4c
     
 
 class Address(models.Model):
+    OPCIONES = (
+        ('Cultivo', 'Cultivo'),
+        ('Terreno', 'Terreno'),
+        ('Rio', 'Rio'),
+    )
+    tipo = models.CharField(
+        choices=OPCIONES,
+        max_length=25
+    )
     nombre = models.TextField()
     address = models.TextField()
     lat = models.FloatField(blank=True, null=True)
@@ -37,19 +46,10 @@ class Entrevistado(models.Model):
 CustomUser = get_user_model()
 
 class Note(models.Model):
-    OPCIONES = (
-        ('Cultivo', 'Cultivo'),
-        ('Terreno', 'Terreno'),
-        ('Rio', 'Rio'),
-    )
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=CustomUser)
     titulo = models.TextField()
     texto = models.TextField()
     nroVisita = models.AutoField(primary_key=True)
-    tipo = models.CharField(
-        choices=OPCIONES,
-        max_length=25
-    )
     fechaHora = models.DateTimeField(auto_now_add=True)
     ubic = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True)
     entrevista = models.BooleanField(default=False)

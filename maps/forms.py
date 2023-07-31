@@ -6,16 +6,18 @@ from .models import Entrevistado
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = {'user', 'titulo', 'texto', 'ubic', 'entrevista', 'fechaEntr', 'entrevistado', 'autor', 'tipo'}
+        fields = {'user','titulo', 'texto', 'ubic', 'entrevista', 'fechaEntr', 'entrevistado', 'autor'}
 
         widgets = {
             
+            'user' : forms.HiddenInput(),
             'titulo': forms.TextInput(attrs={'class': 'form-control'}),
             'texto' : forms.Textarea(attrs={'class': 'form-control','rows':6,'cols':40,'style':'resize:none;'}),
             'ubic' : forms.Select(attrs={'class':'form-control'}),
             'fechaEntr' : forms.DateInput(attrs={'type': 'date'}),
-            'autor' : forms.TextInput(attrs={'class':'form-control'}),
-            'tipo': forms.Select(attrs={'class':'form-control'}),
+            'autor' : forms.TextInput(attrs={
+                'class':'form-control',
+                'readonly': 'readonly'}),
             'entrevistado': forms.Select(attrs={'class':'form-control'})
         }
 
@@ -25,19 +27,31 @@ class NoteForm(forms.ModelForm):
             'ubic': 'Ubicacion',
             'entrevista': '¿Incluye una entrevista?',
             'autor': 'Autor',
-            'tipo': 'Tipo de ubicacion',
             'entrevistado': 'Persona entrevistada'
         }
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-            self.fields['user'].disabled = True
-            self.fields["entrevistado"].widget.attrs["readonly"] = True
 
 
-class AddressForm(forms.Form):
-    nombre = forms.CharField(max_length=200, label="Nombre")
-    address = forms.CharField(max_length=200, label="Dirección")
+class AddressForm(forms.ModelForm):
+    class Meta:        
+        model = Address
+        fields = {'nombre', 'address', 'tipo'}
+
+        widgets = {
+            
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'address' : forms.Textarea(attrs={'class': 'form-control'}),
+            'tipo' : forms.Select(attrs={'class':'form-control'}),
+        }
+
+        labels = {
+            'nombre': 'Nombre',
+            'address': 'Direccion',
+            'tipo': 'Tipo de ubicación',
+        }
+
     
 
 

@@ -14,6 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 
+
 @login_required
 def addNote(request):
     submitted = False
@@ -26,7 +27,8 @@ def addNote(request):
             return HttpResponseRedirect('/?submitted=True')
 
     else:
-            form = NoteForm()
+            nombre_apellido = f"{request.user.first_name} {request.user.last_name}"
+            form = NoteForm(initial={'autor': nombre_apellido, 'user': request.user })
             if 'submitted' in request.GET:
                 submitted = True
     return render(request, 'home.html', {'formu': form, 'submitted':submitted, 'notes' : notes})
@@ -42,8 +44,20 @@ def get_notas(request):
             'titulo': nota.titulo,
             'texto': nota.texto,
             'nroVisita' : nota.nroVisita,
-            'tipo' : nota.tipo,
             'autor': nota.autor
+        })
+    return JsonResponse(data, safe=False)
+
+def get_ubicaciones(request):
+    ubics = Address.objects.all()
+    data = []
+    for ubic in ubics:
+        data.append({
+            'lat': ubic.lat,
+            'long': ubic.long,
+            'nombre': ubic.nombre,
+            'tipo': ubic.tipo,
+            'address': ubic.address
         })
     return JsonResponse(data, safe=False)
 
