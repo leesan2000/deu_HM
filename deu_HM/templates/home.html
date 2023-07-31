@@ -14,7 +14,8 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 
 <style>
@@ -55,8 +56,27 @@
 </style>
 
   <body>
+    
       <button id='miBoton' class="button-40" data-target="#myModal" data-toggle="modal">Nueva nota</button>
       <div id="map" ></div>
+
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="container">
+              <h1>Agregue una nueva nota</h1>
+              <form action="" method=POST>
+                  {% csrf_token %}
+              <div class="form-group">
+                  {{ formu.as_p }}
+              </div>
+              <div class="form-group">
+                  <input class="btn btn-success" type="submit" value="Agregar nota">
+              </div>
+              </form>
+          </div>
+        </div>
+      </div> 
     <script>
       mapboxgl.accessToken = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNnptbWtkMDNpYjNrbnoxZHltZmhtbiJ9.hDEJKjc9Cq2708RJIHigIA';
       var map = new mapboxgl.Map({
@@ -87,24 +107,9 @@
         console.error('Error al obtener los datos:', error);
     });
     </script>
+
     </body>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="container">
-            <h1>Agregue una nueva nota</h1>
-            <form action="" method=POST>
-                {% csrf_token %}
-            <div class="form-group">
-                {{ formu.as_p }}
-            </div>
-            <div class="form-group">
-                <input class="btn btn-success" type="submit" value="Agregar nota">
-            </div>
-            </form>
-        </div>
-        </div>
-      </div>    
+       
     </div>
 
     <script>
@@ -121,6 +126,10 @@
           // Verificar el valor inicial del campo booleano al cargar la página
           $("#id_entrevista").trigger("change");
       });
+      </script>
+
+      <script>
+        $("#myModal").prependTo("body");
       </script>
     {% endblock %}
 
