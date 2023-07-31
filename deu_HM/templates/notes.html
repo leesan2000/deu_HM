@@ -7,6 +7,8 @@
 {% block content %}
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+<link rel="stylesheet" href="{% static 'css/new_address.css' %}">
+
 
 
 <div class="container">
@@ -34,6 +36,9 @@
                 <div>
                     <strong>Publicada el:</strong>
                     <span>{{note.fechaHora}}</span>
+                    <a href="{% url 'detail' note.pk %}">
+                        <button class="button-40" style="margin-left: 1290px;" role="button">Ver mas</button>
+                    </a>
                 </div>
             </footer>
         </div>

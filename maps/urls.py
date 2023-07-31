@@ -12,4 +12,5 @@ urlpatterns = [
     path('get_notas/', views.get_notas, name='get_notas'),
     path('addresses/', views.get_ubics, name='get_ubics'),
     path('new_ent/', views.addEnt, name='createEnt'),
+    path('notes/<int:note_id>', views.detail_page, name='detail'),
 ]

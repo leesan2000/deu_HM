@@ -2,6 +2,7 @@ from typing import Any, Dict
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import CreateView
+from django.views.generic.detail import DetailView
 from .models import Address
 from .models import Note
 from .models import Entrevistado
@@ -10,7 +11,7 @@ from .forms import AddressForm
 from .forms import EntForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 
 @login_required
@@ -110,4 +111,14 @@ def create(response):
 def get_ubics(request):
     elementos = Address.objects.all()
     return render(request, 'addresses.html', {'ubics': elementos})
-    
+
+
+def detalle_objeto(request, note_id):
+    objeto = get_object_or_404(Note, id=note_id)
+    detalle_url = reverse('detalle_objeto', args=[note_id])
+    return redirect(detalle_url)
+
+def detail_page(request, note_id):
+    obj=get_object_or_404(Note,pk=note_id)
+    return render(request, 'det_nota.html', {'obj':obj})
+        
