@@ -13,10 +13,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
+from django.contrib import messages
+
 
 
 @login_required
 def addNote(request):
+    success = ""
     submitted = False
     form = NoteForm
     notes = Note.objects.all()
@@ -24,7 +27,8 @@ def addNote(request):
         form = NoteForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/?submitted=True')
+            messages.success(request, 'Nota agregada exitosamente')
+            return HttpResponseRedirect('/home')
 
     else:
             nombre_apellido = f"{request.user.first_name} {request.user.last_name}"
@@ -103,7 +107,7 @@ def addAddress(request):
         form2 = AddressForm(request.POST)
         if form2.is_valid():
             form2.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/addresses.html')
         else:
             form2 = AddressForm()
 
@@ -116,7 +120,10 @@ def create(response):
         if(form.is_valid()):
             ad = form.cleaned_data["address"]
             a = Address(address=ad)
+            messages.success(response, 'Ubicacion agregada exitosamente')
             a.save()
+            return HttpResponseRedirect('/addresses')
+
     else:
         form = AddressForm()
     return render(response, "new_address.html", {"formulario" : form})

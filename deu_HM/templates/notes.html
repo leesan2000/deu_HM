@@ -12,12 +12,12 @@
 
 
 <div class="container">
-    <h1 style="margin-bottom: 20px; margin-left: 50px; padding-top: 20px;">Notas</h1>
+    <h1 style="margin-bottom: 20px; padding-left: 5%; padding-top: 20px;">Notas</h1>
 </div>
 
-<div class="col-md-12">
+<div class="col" style="padding-left: 5%; padding-right: 5%;">
     {% for note in notes %}
-        <div class="card b-1 hover-shadow mb-20 mr-50 ml-50">
+        <div class="card b-1 hover-shadow">
             <div class="media card-body">
                 <div class="media-left pr-12">
                     <img class="avatar avatar-xl no-radius" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="...">
@@ -38,7 +38,7 @@
                     <span>{{note.fechaHora}}</span>
                 </div>
                 <a href="{% url 'detail' note.pk %}">
-                    <button class="button-40" style="margin-left: 1290px;" role="button">Ver mas</button>
+                    <button class="button-40" style="" role="button">Ver mas</button>
                 </a>
             </footer>
         </div>
