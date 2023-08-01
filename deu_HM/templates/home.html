@@ -131,6 +131,31 @@
       <script>
         $("#myModal").prependTo("body");
       </script>
+
+<script type="text/javascript">
+  // Función para habilitar o deshabilitar el campo dependiendo del valor del campo booleano
+  function controlarCampo() {
+      var campoBooleano = $('#id_entrevista'); // Asegúrate de reemplazar 'id_campo_booleano' con el ID real de tu campo booleano
+      var campoADesactivar = $('#id_entrevistado');
+      var campoADesactivar2 = $('#id_fechaEntr');
+       // Asegúrate de reemplazar 'id_campo_a_desactivar' con el ID real de tu campo a desactivar
+
+      if (campoBooleano.prop('checked')) {
+          campoADesactivar.prop('disabled', false);
+          campoADesactivar2.prop('disabled', false)
+      } else {
+          campoADesactivar.prop('disabled', true);
+          campoADesactivar2.prop('disabled', true)
+
+      }
+  }
+
+  // Llamar a la función cuando la página se cargue y cuando el valor del campo booleano cambie
+  $(document).ready(function() {
+      controlarCampo();
+      $('#id_entrevista').change(controlarCampo);
+  });
+</script>
     {% endblock %}
 
 

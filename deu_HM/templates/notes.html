@@ -36,10 +36,10 @@
                 <div>
                     <strong>Publicada el:</strong>
                     <span>{{note.fechaHora}}</span>
-                    <a href="{% url 'detail' note.pk %}">
-                        <button class="button-40" style="margin-left: 1290px;" role="button">Ver mas</button>
-                    </a>
                 </div>
+                <a href="{% url 'detail' note.pk %}">
+                    <button class="button-40" style="margin-left: 1290px;" role="button">Ver mas</button>
+                </a>
             </footer>
         </div>
     {% endfor %}

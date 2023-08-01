@@ -6,7 +6,7 @@ from .models import Entrevistado
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = {'user','titulo', 'texto', 'ubic', 'entrevista', 'fechaEntr', 'entrevistado', 'autor'}
+        fields = ['user','titulo', 'texto', 'ubic', 'entrevista', 'fechaEntr', 'entrevistado', 'autor']
 
         widgets = {
             
@@ -14,7 +14,7 @@ class NoteForm(forms.ModelForm):
             'titulo': forms.TextInput(attrs={'class': 'form-control'}),
             'texto' : forms.Textarea(attrs={'class': 'form-control','rows':6,'cols':40,'style':'resize:none;'}),
             'ubic' : forms.Select(attrs={'class':'form-control'}),
-            'fechaEntr' : forms.DateInput(attrs={'type': 'date'}),
+            'fechaEntr' : forms.DateInput(attrs={'type': 'date', 'required': False}),
             'autor' : forms.TextInput(attrs={
                 'class':'form-control',
                 'readonly': 'readonly'}),
