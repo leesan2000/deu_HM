@@ -38,8 +38,12 @@
                     <span>{{note.fechaHora}}</span>
                 </div>
                 <a href="{% url 'detail' note.pk %}">
-                    <button class="button-40" style="" role="button">Ver mas</button>
+                    <button class="button-40" role="button">Ver mas</button>
                 </a>
+                <a href="{% url 'delete_note' note.pk %}">
+                    <button class="button-40" role="button">Eliminar</button>
+                </a>
+
             </footer>
         </div>
     {% endfor %}

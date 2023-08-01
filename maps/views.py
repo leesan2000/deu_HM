@@ -146,3 +146,20 @@ def detail_page(request, note_id):
 @login_required
 def profile(request):
     return render(request, 'profile.html')
+
+
+def delete_ubic(request, ubic_id):
+        # Obtener la instancia del modelo basada en el ID
+        instancia = Address.objects.get(pk=ubic_id)
+        # Eliminar la instancia del modelo
+        instancia.delete()
+        messages.success(request, 'La ubicacion se ha eliminado exitosamente')
+        return redirect('/addresses')
+
+def delete_note(request, note_id):
+        # Obtener la instancia del modelo basada en el ID
+        instancia = Note.objects.get(pk=note_id)
+        # Eliminar la instancia del modelo
+        instancia.delete()
+        messages.success(request, 'La nota se ha eliminado exitosamente')
+        return redirect('/notes')

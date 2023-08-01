@@ -5,10 +5,13 @@
 {% load static %}
 
 {% block content %}
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/notes.css' %}">
 <link rel="stylesheet" href="{% static 'css/new_address.css' %}">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/avisos.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
 <h1 style="margin-bottom: 20px; margin-left: 50px; padding-top: 20px;">Ubicaciones</h1>
@@ -28,33 +31,59 @@
         {% endfor %}
     </ul>
     {% endif %}
-  </div>
+</div>
 
 
 <div class="container">
-<div class="col-md-12">
-    {% for ubic in ubics %}
-        <div class="card b-1 hover-shadow mb-20 mr-50 ml-50">
-            <div class="media card-body">
-                <div class="media-left pr-12">
-                    <img class="avatar avatar-xl no-radius" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="...">
-                </div>
-                <div class="media-body">
-                    <div class="mb-2">
-                        <span class="fs-20 pr-16">{{ubic.address}}</span>
+    <div class="col-md-12">
+        {% for ubic in ubics %}
+            <div class="card b-1 hover-shadow mb-20 mr-50 ml-50">
+                <div class="media card-body">
+                    <div class="media-body">
+                        <div class="mb-2">
+                            <span class="fs-20 pr-16">{{ubic.address}}</span>
+                        </div>
+                        <small class="fs-16 fw-300 ls-1">Latitud: {{ubic.lat}} - </small>
+                        <small class="fs-16 fw-300 ls-1">Longitud: {{ubic.long}}</small>
                     </div>
-                    <small class="fs-16 fw-300 ls-1">Latitud: {{ubic.lat}} - </small>
-                    <small class="fs-16 fw-300 ls-1">Longitud: {{ubic.long}}</small>
+                </div>
+                    <button class="button-40" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar la ubicacion?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <a href="{% url 'delete_ubic' ubic.pk %}">
+                        <button type="button" class="btn btn-danger">Si</button>
+                    </a>
+                    </div>
+                </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-    <br>
-</div>
+            </div>
+        {% endfor %}
+        <br>
+    </div>
 </div>
 
+
+
+
+<script>
+    $("#exampleModal").prependTo("body");
+</script>
 
 {% endblock %}
+
+
 
 
 
