@@ -1,0 +1,15 @@
+.message-container {
+    position: fixed; /* Usamos 'fixed' para que el mensaje siempre se muestre en la parte inferior */
+    bottom: 20px; /* Ajusta la distancia del mensaje desde el borde inferior de la pantalla */
+    left: 50%; /* Coloca el mensaje en el centro horizontal de la pantalla */
+    transform: translateX(-50%); /* Centra el mensaje horizontalmente */
+    z-index: 9999;
+  }
+
+  /* Estilo para mensajes de éxito */
+  .success-message {
+    color: green;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid green;
+  }
