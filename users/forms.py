@@ -58,3 +58,29 @@ class CustomLoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_password_input_style()
+
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ('first_name', 'last_name', 'email', 'date_of_birth', 'phone_number', 'gender', 'profile_picture')
+        widgets = {
+            'first_name': forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'form-control', 'required': 'required'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Apellido', 'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'placeholder': 'Nombre de usuario', 'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Correo electrónico', 'class': 'form-control'}),
+            'date_of_birth': DatePickerInput(
+                options={
+                    "format": "DD/MM/YYYY", # moment date-time format
+                    "showClose": True,
+                    "showClear": True,
+                    "showTodayButton": True,
+                    "locale": "es",
+                },
+                attrs={'class': 'form-control'}
+            ),
+            'phone_number': forms.TextInput(attrs={'placeholder': 'Número de teléfono', 'class': 'form-control'}),
+            'gender': forms.Select(attrs={'class': 'form-control'}),
+            'profile_picture': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }

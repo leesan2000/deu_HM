@@ -135,7 +135,3 @@ def detalle_objeto(request, note_id):
 def detail_page(request, note_id):
     obj=get_object_or_404(Note,pk=note_id)
     return render(request, 'det_nota.html', {'obj':obj})
-        
-@login_required
-def profile(request):
-    return render(request, 'profile.html')

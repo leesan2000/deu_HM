@@ -11,8 +11,8 @@ class CustomUser(AbstractUser):
     )
 
     GENDER_CHOICES = (
-        ('H', 'Hombre'),
-        ('M', 'Mujer'),
+        ('H', 'Masculino'),
+        ('M', 'Femenino'),
         ('O', 'Otro'),
     )
 

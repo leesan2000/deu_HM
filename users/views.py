@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegistrationForm
+from .forms import RegistrationForm, UserEditForm
 from faker import Faker
 from .forms import CustomLoginForm
 from django.conf import settings
-from datetime import timedelta
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -86,3 +85,26 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('/')
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
+
+
+@login_required
+def edit_user(request):
+    user = request.user
+
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=user)
+        if form.is_valid():
+            print("valido")
+            form.save()
+            return redirect('profile')  
+        else:
+            print(form.errors)
+            print("no valido")
+    else:
+        form = UserEditForm(instance=user)
+
+    return render(request, 'edit_profile.html', {'form': form})

@@ -2,6 +2,7 @@ from django.urls import path
 #from .views import AddressView
 from .views import AddNoteView
 from . import views
+from users.views import profile, edit_user
 
 
 urlpatterns = [
@@ -13,5 +14,6 @@ urlpatterns = [
     path('addresses/', views.get_ubics, name='get_ubics'),
     path('new_ent/', views.addEnt, name='createEnt'),
     path('notes/<int:note_id>', views.detail_page, name='detail'),
-    path('profile/', views.profile, name='profile'),
+    path('profile/', profile, name='profile'),
+    path('editar/', edit_user, name='edit_user'),
 ]
