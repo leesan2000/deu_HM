@@ -134,11 +134,6 @@ def get_ubics(request):
     return render(request, 'addresses.html', {'ubics': elementos})
 
 
-def detalle_objeto(request, note_id):
-    objeto = get_object_or_404(Note, id=note_id)
-    detalle_url = reverse('detalle_objeto', args=[note_id])
-    return redirect(detalle_url)
-
 def detail_page(request, note_id):
     obj=get_object_or_404(Note,pk=note_id)
     return render(request, 'det_nota.html', {'obj':obj})

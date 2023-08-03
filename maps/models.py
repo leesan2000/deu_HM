@@ -51,7 +51,7 @@ class Note(models.Model):
     texto = models.TextField()
     nroVisita = models.AutoField(primary_key=True)
     fechaHora = models.DateTimeField(auto_now_add=True)
-    ubic = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True)
+    ubic = models.ForeignKey(Address, on_delete=models.CASCADE, blank=True, null=True)
     entrevista = models.BooleanField(default=False)
     fechaEntr = models.DateField(null=True, blank=True)
     entrevistado = models.ForeignKey(Entrevistado, on_delete=models.SET_NULL, blank=True, null=True)
