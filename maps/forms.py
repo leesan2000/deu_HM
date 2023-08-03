@@ -42,13 +42,13 @@ class AddressForm(forms.ModelForm):
         widgets = {
             
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'address' : forms.Textarea(attrs={'class': 'form-control'}),
+            'address' : forms.TextInput(attrs={'class': 'form-control', 'id' : 'direccion', 'placeholder' : 'Ingrese una direccion'}),
             'tipo' : forms.Select(attrs={'class':'form-control'}),
         }
 
         labels = {
-            'nombre': 'Nombre',
-            'address': 'Direccion',
+            'nombre': 'Nombre de la ubicación',
+            'address': 'Dirección',
             'tipo': 'Tipo de ubicación',
         }
 

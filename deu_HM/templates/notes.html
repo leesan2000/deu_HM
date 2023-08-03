@@ -9,11 +9,23 @@
 <link rel="stylesheet" href="{% static 'css/notes.css' %}">
 <link rel="stylesheet" href="{% static 'css/new_address.css' %}">
 
+<h1 style="margin-bottom: 20px; padding-top: 20px; padding-left: 3%;">Notas</h1>
 
 
 <div class="container">
-    <h1 style="margin-bottom: 20px; padding-left: 5%; padding-top: 20px;">Notas</h1>
+    <form style="padding-left: 3%; padding-top: 30px; padding-right: 3%; padding-bottom: 50px;" method="get">
+        {{ filtro.form}}
+        <div class="form-group">
+        </div>
+        <input class="button-40" type="submit" value="Filtrar">
+        <a href="{% url 'notes' %}" ><input class="button-40" value="Reiniciar filtros" style="margin-left: 50px ;"></a>
+
+    </form>
+    
 </div>
+
+
+
 
 <div class="col" style="padding-left: 5%; padding-right: 5%;">
     {% for note in notes %}
@@ -38,7 +50,7 @@
                     <span>{{note.fechaHora}}</span>
                 </div>
                 <a href="{% url 'detail' note.pk %}">
-                    <button class="button-40" role="button">Ver mas</button>
+                    {{ note.pk }}
                 </a>
                     <button class="button-40" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
 

@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
-
+from .filters import notefilter
 
 
 @login_required
@@ -133,6 +133,18 @@ def get_ubics(request):
     elementos = Address.objects.all()
     return render(request, 'addresses.html', {'ubics': elementos})
 
+def get_notas(request):
+     elementos = Note.objects.all()
+     filtro = notefilter(request.GET, queryset=elementos)
+     elementos = filtro.qs
+     context = {'notes' : elementos, 'filtro' : filtro}
+     return render(request, 'notes.html', context)
+
+
+def detalle_objeto(request, note_id):
+    objeto = get_object_or_404(Note, id=note_id)
+    detalle_url = reverse('detalle_objeto', args=[note_id])
+    return redirect(detalle_url)
 
 def detail_page(request, note_id):
     obj=get_object_or_404(Note,pk=note_id)

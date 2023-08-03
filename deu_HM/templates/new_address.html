@@ -9,6 +9,13 @@
 <link rel="stylesheet" href="{% static 'css/notes.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="{% static 'css/new_address.css' %}">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="{% static 'css/js/mapAPI.js' %}"></script>   
+
+
+
 
 
 <h1 style="padding-left: 50px; padding-top: 40px;">Agregue una direccion al sistema</h1>
@@ -20,4 +27,24 @@
             <input class="button-40" type="submit" value="Agregar">
         </div>
     </div>
-    {% endblock %}
+
+
+       </div>
+       <div id="map"></div>
+       <div id="infowindow-content">
+         <span id="place-name" class="title"></span><br />
+         <span id="place-address"></span>
+       </div>
+   
+       <script
+         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxYSTI4oEMH98Llk94-k5vSi0MonHjhhQ&callback=initMap&libraries=places&v=weekly"
+         defer
+       ></script>
+     </body>
+   </html>
+
+
+
+
+
+{% endblock %}
