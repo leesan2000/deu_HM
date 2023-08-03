@@ -5,6 +5,9 @@ from faker import Faker
 from .forms import CustomLoginForm
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.messages import get_messages
+
 
 
 # Create your views here.
@@ -88,7 +91,10 @@ def user_logout(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+    success_messages = messages.get_messages(request)
+    return render(request, 'profile.html', {'messages': success_messages})
+
+
 
 
 @login_required
@@ -98,12 +104,12 @@ def edit_user(request):
     if request.method == 'POST':
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
-            print("valido")
             form.save()
-            return redirect('profile')  
+            messages.success(request, 'Perfil actualizado exitosamente')
+            return redirect('profile')
         else:
-            print(form.errors)
-            print("no valido")
+            messages.error(request, 'Error al actualizar el perfil')
+            return redirect('profile')  
     else:
         form = UserEditForm(instance=user)
 
