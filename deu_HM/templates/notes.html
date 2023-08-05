@@ -17,15 +17,20 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
-<h1 style="margin-bottom: 20px; margin-left: 50px; padding-top: 20px;">Ubicaciones</h1>
+<h1 style="margin-bottom: 20px; margin-left: 50px; padding-top: 20px;">Notas</h1>
 
+<div class="container">
+    <form style="padding-left: 3%; padding-top: 30px; padding-right: 3%; padding-bottom: 50px;" method="get">
+        {{ filtro.form}}
+        <div class="form-group">
+        </div>
+        <input class="button-40" type="submit" value="Filtrar">
+        <a href="{% url 'notes' %}" ><input class="button-40" value="Reiniciar filtros" style="margin-left: 50px ;"></a>
 
-<h1>
-    <a href="{% url 'create' %}">
-        <button class="button-40" style="margin-left: 50px; margin-bottom: 30px;" role="button">Agregar
-            ubicacion</button>
-    </a>
-</h1>
+    </form>
+
+</div>
+
 
 <div class="message-container">
     {% if messages %}
