@@ -1,28 +1,35 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{%  from .models import Note % }
+{% from .models import Note % }
 
-{% load static %}
 
 {% block content %}
 <!-- Contenido específico de la página de inicio -->
+
 <head>
   <meta charset="utf-8">
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   <link rel="stylesheet" href="{% static 'css/avisos.css' %}">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
 </head>
 
 <style>
-  body { margin: 0; padding: 0; }
-  #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  #map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
   #miBoton {
     position: absolute;
     top: 20px;
@@ -39,7 +46,7 @@
     color: #FFFFFF;
     cursor: pointer;
     flex: 0 0 auto;
-    font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 1.125rem;
     font-weight: 600;
     line-height: 1.5rem;
@@ -48,126 +55,132 @@
     text-decoration: none #6B7280 solid;
     text-decoration-thickness: auto;
     transition-duration: .2s;
-    transition-property: background-color,border-color,color,fill,stroke;
+    transition-property: background-color, border-color, color, fill, stroke;
     transition-timing-function: cubic-bezier(.4, 0, 0.2, 1);
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
     width: auto;
   }
-
 </style>
 
-  <body>
-    <div class="message-container">
-      {% if messages %}
-      <ul class="success-message">
-          {% for message in messages %}
-          <p  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
-          {% endfor %}
-      </ul>
-      {% endif %}
-    </div>
+<body>
+  {% if messages %}
+  <div class="message-container">
+    <ul class="success-message">
+      {% for message in messages %}
+      <p {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 
-      <button id='miBoton' class="button-40" data-target="#myModal" data-toggle="modal">Nueva nota</button>
-      <div id="map" ></div>
+  <button id='miBoton' class="button-40" data-target="#myModal" data-toggle="modal">Nueva nota</button>
+  <div id="map"></div>
 
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="container">
-              <h1>Agregue una nueva nota</h1>
-              <form action="" method=POST>
-                  {% csrf_token %}
-              <div class="form-group">
-                  {{ formu.as_p }}
-              </div>
-              <div class="form-group">
-                  <input class="btn btn-success" type="submit" value="Agregar nota">
-              </div>
-              </form>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Nueva nota</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>  
+        </div>
+
+        <div class="modal-body">
+          <form action="" method=POST>
+          {% csrf_token %}
+          <div class="form-group">
+            {{ formu.as_p }}
           </div>
         </div>
-      </div> 
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
     <script>
       mapboxgl.accessToken = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNnptbWtkMDNpYjNrbnoxZHltZmhtbiJ9.hDEJKjc9Cq2708RJIHigIA';
       var map = new mapboxgl.Map({
-          container: 'map', // container ID
-          // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-          style: 'mapbox://styles/mapbox/streets-v12', // style URL
-          center: [-58.381485, -34.603969], // starting position [lng, lat]
-          zoom: 9 // starting zoom
+        container: 'map', // container ID
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/mapbox/streets-v12', // style URL
+        center: [-58.381485, -34.603969], // starting position [lng, lat]
+        zoom: 9 // starting zoom
       });
     </script>
     <script>
-    fetch('/get_ubicaciones/')
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(ubic => {
+      fetch('/get_ubicaciones/')
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(ubic => {
             // Agrega el marcador al mapa
-            
-            var popup = new mapboxgl.Popup({ closeOnClick: true }, {offset: 50})
-          .setHTML(`<h3>${ubic.nombre}</h3><p>${ubic.address} | ${ubic.tipo}</p><a data-target="#myModal" data-toggle="modal" href="#">Agregar nota en ubicacion actual</a></p>`);
+
+            var popup = new mapboxgl.Popup({ closeOnClick: true }, { offset: 50 })
+              .setHTML(`<h3>${ubic.nombre}</h3><p>${ubic.address} | ${ubic.tipo}</p><a data-target="#myModal" data-toggle="modal" href="#">Agregar nota en ubicacion actual</a></p>`);
 
             const marker = new mapboxgl.Marker()
-                .setLngLat([ubic.long, ubic.lat])
-                .setPopup(popup)     
-                .addTo(map);
+              .setLngLat([ubic.long, ubic.lat])
+              .setPopup(popup)
+              .addTo(map);
+          });
+        })
+        .catch(error => {
+          console.error('Error al obtener los datos:', error);
         });
-    })
-    .catch(error => {
-        console.error('Error al obtener los datos:', error);
-    });
     </script>
 
-    </body>
-       
-    </div>
+</body>
 
-    <script>
-      $(document).ready(function() {
-          // Cuando el valor del campo booleano cambia
-          $("#id_entrevista").change(function() {
-              // Obtener el valor actual del campo booleano (true o false)
-              var valorHayEntrevista = $(this).is(":checked");
-              
-              // Habilitar o deshabilitar el campo de fecha según el valor del campo booleano
-              $("#id_fecha_entrevista").prop("disabled", !valorHayEntrevista);
-          });
-          
-          // Verificar el valor inicial del campo booleano al cargar la página
-          $("#id_entrevista").trigger("change");
-      });
-      </script>
+<script>
+  $(document).ready(function () {
+    // Cuando el valor del campo booleano cambia
+    $("#id_entrevista").change(function () {
+      // Obtener el valor actual del campo booleano (true o false)
+      var valorHayEntrevista = $(this).is(":checked");
 
-      <script>
-        $("#myModal").prependTo("body");
-      </script>
+      // Habilitar o deshabilitar el campo de fecha según el valor del campo booleano
+      $("#id_fecha_entrevista").prop("disabled", !valorHayEntrevista);
+    });
+
+    // Verificar el valor inicial del campo booleano al cargar la página
+    $("#id_entrevista").trigger("change");
+  });
+</script>
+
+<script>
+  $("#myModal").prependTo("body");
+</script>
 
 <script type="text/javascript">
   // Función para habilitar o deshabilitar el campo dependiendo del valor del campo booleano
   function controlarCampo() {
-      var campoBooleano = $('#id_entrevista'); // Asegúrate de reemplazar 'id_campo_booleano' con el ID real de tu campo booleano
-      var campoADesactivar = $('#id_entrevistado');
-      var campoADesactivar2 = $('#id_fechaEntr');
-       // Asegúrate de reemplazar 'id_campo_a_desactivar' con el ID real de tu campo a desactivar
+    var campoBooleano = $('#id_entrevista'); // Asegúrate de reemplazar 'id_campo_booleano' con el ID real de tu campo booleano
+    var campoADesactivar = $('#id_entrevistado');
+    var campoADesactivar2 = $('#id_fechaEntr');
+    // Asegúrate de reemplazar 'id_campo_a_desactivar' con el ID real de tu campo a desactivar
 
-      if (campoBooleano.prop('checked')) {
-          campoADesactivar.prop('disabled', false);
-          campoADesactivar2.prop('disabled', false)
-      } else {
-          campoADesactivar.prop('disabled', true);
-          campoADesactivar2.prop('disabled', true)
+    if (campoBooleano.prop('checked')) {
+      campoADesactivar.prop('disabled', false);
+      campoADesactivar2.prop('disabled', false)
+    } else {
+      campoADesactivar.prop('disabled', true);
+      campoADesactivar2.prop('disabled', true)
 
-      }
+    }
   }
 
   // Llamar a la función cuando la página se cargue y cuando el valor del campo booleano cambie
-  $(document).ready(function() {
-      controlarCampo();
-      $('#id_entrevista').change(controlarCampo);
+  $(document).ready(function () {
+    controlarCampo();
+    $('#id_entrevista').change(controlarCampo);
   });
 </script>
-    {% endblock %}
-
-
+{% endblock %}
