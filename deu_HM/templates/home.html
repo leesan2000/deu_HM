@@ -65,13 +65,19 @@
 </style>
 
 <body>
+
   {% if messages %}
   <div class="message-container">
-    <ul class="success-message">
-      {% for message in messages %}
-      <p {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
-      {% endfor %}
-    </ul>
+
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+      <strong>{{ message }}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+
   </div>
   {% endif %}
 
@@ -86,56 +92,56 @@
           <h5 class="modal-title" id="modalTitle">Nueva nota</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-          </button>  
+          </button>
         </div>
 
         <div class="modal-body">
           <form action="" method=POST>
-          {% csrf_token %}
-          <div class="form-group">
-            {{ formu.as_p }}
-          </div>
+            {% csrf_token %}
+            <div class="form-group">
+              {{ formu.as_p }}
+            </div>
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
+          </form>
         </div>
 
       </div>
     </div>
   </div>
-    <script>
-      mapboxgl.accessToken = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNnptbWtkMDNpYjNrbnoxZHltZmhtbiJ9.hDEJKjc9Cq2708RJIHigIA';
-      var map = new mapboxgl.Map({
-        container: 'map', // container ID
-        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        style: 'mapbox://styles/mapbox/streets-v12', // style URL
-        center: [-58.381485, -34.603969], // starting position [lng, lat]
-        zoom: 9 // starting zoom
-      });
-    </script>
-    <script>
-      fetch('/get_ubicaciones/')
-        .then(response => response.json())
-        .then(data => {
-          data.forEach(ubic => {
-            // Agrega el marcador al mapa
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNnptbWtkMDNpYjNrbnoxZHltZmhtbiJ9.hDEJKjc9Cq2708RJIHigIA';
+    var map = new mapboxgl.Map({
+      container: 'map', // container ID
+      // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+      style: 'mapbox://styles/mapbox/streets-v12', // style URL
+      center: [-58.381485, -34.603969], // starting position [lng, lat]
+      zoom: 9 // starting zoom
+    });
+  </script>
+  <script>
+    fetch('/get_ubicaciones/')
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(ubic => {
+          // Agrega el marcador al mapa
 
-            var popup = new mapboxgl.Popup({ closeOnClick: true }, { offset: 50 })
-              .setHTML(`<h3>${ubic.nombre}</h3><p>${ubic.address} | ${ubic.tipo}</p><a data-target="#myModal" data-toggle="modal" href="#">Agregar nota en ubicacion actual</a></p>`);
+          var popup = new mapboxgl.Popup({ closeOnClick: true }, { offset: 50 })
+            .setHTML(`<h3>${ubic.nombre}</h3><p>${ubic.address} | ${ubic.tipo}</p><a data-target="#myModal" data-toggle="modal" href="#">Agregar nota en ubicacion actual</a></p>`);
 
-            const marker = new mapboxgl.Marker()
-              .setLngLat([ubic.long, ubic.lat])
-              .setPopup(popup)
-              .addTo(map);
-          });
-        })
-        .catch(error => {
-          console.error('Error al obtener los datos:', error);
+          const marker = new mapboxgl.Marker()
+            .setLngLat([ubic.long, ubic.lat])
+            .setPopup(popup)
+            .addTo(map);
         });
-    </script>
+      })
+      .catch(error => {
+        console.error('Error al obtener los datos:', error);
+      });
+  </script>
 
 </body>
 
