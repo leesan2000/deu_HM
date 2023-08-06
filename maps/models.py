@@ -12,19 +12,13 @@ class Address(models.Model):
     )
     tipo = models.CharField(
         choices=OPCIONES,
-        max_length=25
+        max_length=25,
+        null=True
     )
     nombre = models.TextField()
     address = models.TextField()
     lat = models.FloatField(blank=True, null=True)
     long = models.FloatField(blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        g = geocoder.mapbox(self.address, key=mapbox_token)
-        g = g.latlng
-        self.lat = g[0]
-        self.long = g[1]
-        return super(Address, self).save(*args, **kwargs)
     
     def __str__(self):
         return self.address

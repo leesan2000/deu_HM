@@ -15,7 +15,39 @@ from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
 from .filters import notefilter
+import requests
+from django.shortcuts import render
 
+def geocode_address(request):
+    if request.method == 'POST':
+        address = request.POST.get('address')
+        tipo = request.POST.get('tipo')
+        nombre = request.POST.get('nombre')
+        if address:
+            # Realiza una solicitud a la API de Geocoder de Google Maps
+            api_key = 'AIzaSyCxYSTI4oEMH98Llk94-k5vSi0MonHjhhQ'
+            base_url = 'https://maps.googleapis.com/maps/api/geocode/json'
+            params = {'address': address, 'key': api_key}
+
+            response = requests.get(base_url, params=params)
+            data = response.json()
+
+            if data['status'] == 'OK':
+                # Obtiene la latitud y longitud de la respuesta de la API
+                lati = data['results'][0]['geometry']['location']['lat']
+                lngi = data['results'][0]['geometry']['location']['lng']
+
+                # Crea una nueva instancia del modelo Location y guárdala en la base de datos
+                location = Address.objects.create(address=address, lat=lati, long=lngi, tipo=tipo, nombre=nombre)
+                location.save()
+                messages.success(request, 'Ubicación agregada exitosamente')
+                return HttpResponseRedirect('/addresses')
+            else:
+                messages.success(request, 'La ubicación no se pudo agregar, intente nuevamente')
+                return HttpResponseRedirect('/addresses')
+
+
+    return render(request, 'new_address.html')
 
 @login_required
 def addNote(request):

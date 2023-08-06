@@ -9,7 +9,7 @@ urlpatterns = [
     #path('home', AddressView.as_view(), name='home'),
     path('home/', views.addNote, name='home'),
     path('notes/', views.get_notas, name='notes'),
-    path('new_address/', views.create, name='create'),
+    path('new_address/', views.geocode_address, name='geocode_address'),
     path('get_ubicaciones/', views.get_ubicaciones, name='get_ubicaciones'),
     path('addresses/', views.get_ubics, name='get_ubics'),
     path('new_ent/', views.addEnt, name='createEnt'),
@@ -18,6 +18,7 @@ urlpatterns = [
     path('editar/', edit_user, name='edit_user'),
     path('delete_ubic/<int:ubic_id>/', views.delete_ubic, name='delete_ubic'),
     path('delete_note/<int:note_id>/', views.delete_note, name='delete_note'),
+    #path('geocode/', views.geocode_address, name='geocode_address'),
 
 
 ]
