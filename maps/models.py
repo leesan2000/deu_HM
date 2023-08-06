@@ -15,7 +15,8 @@ class Address(models.Model):
     )
     tipo = models.CharField(
         choices=OPCIONES,
-        max_length=25
+        max_length=25,
+        null=True
     )
     nombre = models.TextField()
     address = models.TextField()

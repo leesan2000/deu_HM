@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geocoder - Ingrese una dirección</title>
+</head>
+<body>
+    <h1>Geocoder - Ingrese una dirección</h1>
+    <form method="post" action="{% url 'geocode_address' %}">
+        {% csrf_token %}
+        <label for="address">Dirección:</label>
+        <input type="text" id="address" name="address" required>
+        <button type="submit">Geocodificar</button>
+    </form>
+</body>
+</html>
