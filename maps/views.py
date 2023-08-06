@@ -88,12 +88,15 @@ def get_ubicaciones(request):
     ubics = Address.objects.all()
     data = []
     for ubic in ubics:
+        url_detail_ubic = reverse('detail_ubic', kwargs={'ubic_id': ubic.pk})
         data.append({
             'lat': ubic.lat,
             'long': ubic.long,
             'nombre': ubic.nombre,
             'tipo': ubic.tipo,
-            'address': ubic.address
+            'address': ubic.address,
+            'pk': ubic.pk,
+            'url_detail': url_detail_ubic,
         })
     return JsonResponse(data, safe=False)
 
@@ -181,6 +184,10 @@ def detalle_objeto(request, note_id):
 def detail_page(request, note_id):
     obj=get_object_or_404(Note,pk=note_id)
     return render(request, 'det_nota.html', {'obj':obj})
+
+def detail_ubic(request, ubic_id):
+    obj=get_object_or_404(Address,pk=ubic_id)
+    return render(request, 'det_address.html', {'obj':obj})
 
 
 def delete_ubic(request, ubic_id):

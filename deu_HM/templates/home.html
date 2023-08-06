@@ -130,7 +130,15 @@
           // Agrega el marcador al mapa
 
           var popup = new mapboxgl.Popup({ closeOnClick: true }, { offset: 50 })
-            .setHTML(`<h3>${ubic.nombre}</h3><p>${ubic.address} | ${ubic.tipo}</p><a data-target="#myModal" data-toggle="modal" href="#">Agregar nota en ubicacion actual</a></p>`);
+            .setHTML(`
+            <h3 class="">${ubic.nombre}</h3>
+            <p>${ubic.address} | ${ubic.tipo}</p>
+            <a data-target="#myModal" data-toggle="modal" href="#" class="badge badge-dark">Nueva nota</a>
+            
+            <a href="${ubic.url_detail}" class="badge badge-dark">
+              Ver detalle
+            </a>
+          `);
 
           const marker = new mapboxgl.Marker()
             .setLngLat([ubic.long, ubic.lat])

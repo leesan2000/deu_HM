@@ -60,15 +60,15 @@
                 <small class="fs-16 fw-300 ls-1">Autor: {{note.user.first_name}} {{note.user.last_name}}</small>
             </div>
             <div class="media-right text-right d-none d-md-block">
-                <p class="fs-14 text-fade mb-12"><i class="fa fa-map-marker pr-1"></i>{{note.ubic}}</p>
+                <p class="fs-14 text-fade mb-12"><i class="fa fa-map-marker pr-1"></i>{{note.ubic.nombre}}</p>
             </div>
         </div>
         <footer class="card-footer flexbox align-items-center">
             <div>
                 <strong>Publicada el:</strong>
-                <span>{{note.fechaHora}}</span>
+                <span>{{note.fechaHora|date:"d/m/Y"}}</span>
             </div>
-            <a href="{% url 'detail' note.pk %}">
+            <a href="{% url 'detail_note' note.pk %}">
                 {{ note.pk }}
             </a>
             <button class="button-40" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
@@ -77,7 +77,7 @@
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar la nota?

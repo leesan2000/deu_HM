@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_address.css' %}">
+</head>
+
+
+<div style="padding-top: 30px;">
+    <h1 style="padding-left: 50px; padding-bottom: 30px;">Nota #{{obj.pk}}</h1>
+
+    <div class="card b-1 hover-shadow mb-20 mr-50 ml-50">
+        <div class="media card-body">
+            <h1>{{ obj.nombre }}</h1>
+        </div>
+        <footer class="card-footer flexbox align-items-center">
+        </footer>
+        <div class="media card-body">
+            <div class="mb-2">
+                <p>{{obj.texto}}</p>
+            </div>
+        </div>
+        <footer class="card-footer flexbox align-items-center">
+            <div>
+                <strong>Publicada el: {{obj.fechaHora}}</strong>
+                <span></span>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+<div style="padding-left: 50px; padding-right: 50px;">
+<div class="card" style="width: 25rem;">
+    <div class="card-body">
+      <h3 class="card-text">Ubicacion de la nota</h3>
+      <p>Latitud: {{obj.ubic.lat}}</p>
+      <p>Longitud: {{obj.ubic.long}}</p>
+      <p>Direccion: {{obj.ubic.address}}</p>
+
+    </div>
+</div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+
