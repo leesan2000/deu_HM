@@ -1,7 +1,4 @@
 {% extends 'base.html' %}
-{% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
 {% load static %}
 
 {% block content %}
@@ -25,22 +22,27 @@
         <div class="form-group">
         </div>
         <input class="button-40" type="submit" value="Filtrar">
-        <a href="{% url 'notes' %}" ><input class="button-40" value="Reiniciar filtros" style="margin-left: 50px ;"></a>
+        <a href="{% url 'notes' %}"><input class="button-40" value="Reiniciar filtros" style="margin-left: 50px ;"></a>
 
     </form>
 
 </div>
 
 
+{% if messages %}
 <div class="message-container">
-    {% if messages %}
-    <ul class="success-message">
-        {% for message in messages %}
-        <p {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
-        {% endfor %}
-    </ul>
-    {% endif %}
+
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+
 </div>
+{% endif %}
 
 
 <div class="col" style="padding-left: 5%; padding-right: 5%;">
@@ -48,14 +50,14 @@
     <div class="card b-1 hover-shadow">
         <div class="media card-body">
             <div class="media-left pr-12">
-                <img class="avatar avatar-xl no-radius" src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                    alt="...">
+                <img class="avatar avatar-xl no-radius" src="{{ note.user.profile_picture.url }}"
+                    alt="Foto de la persona que cargo la nota.">
             </div>
             <div class="media-body">
                 <div class="mb-2">
                     <span class="fs-20 pr-16">{{note.titulo}}</span>
                 </div>
-                <small class="fs-16 fw-300 ls-1">Autor: {{note.user}}</small>
+                <small class="fs-16 fw-300 ls-1">Autor: {{note.user.first_name}} {{note.user.last_name}}</small>
             </div>
             <div class="media-right text-right d-none d-md-block">
                 <p class="fs-14 text-fade mb-12"><i class="fa fa-map-marker pr-1"></i>{{note.ubic}}</p>

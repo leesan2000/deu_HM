@@ -4,9 +4,6 @@ from django.contrib.auth import get_user_model
 
 mapbox_token = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNzduejE0MDV0dDNnbjR0cDVtNnc4ciJ9.nA8U773QrxdRkRZiw8TlnA'
 
-
-    
-
 class Address(models.Model):
     OPCIONES = (
         ('Cultivo', 'Cultivo'),
