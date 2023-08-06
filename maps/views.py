@@ -40,11 +40,12 @@ def geocode_address(request):
                 # Crea una nueva instancia del modelo Location y guárdala en la base de datos
                 location = Address.objects.create(address=address, lat=lati, long=lngi, tipo=tipo, nombre=nombre)
                 location.save()
-
+                messages.success(request, 'Ubicación agregada exitosamente')
                 return HttpResponseRedirect('/addresses')
             else:
-                error_message = 'Error en la solicitud de geocodificación.'
-                return render(request, 'addresses.html', {'error_message': error_message})
+                messages.success(request, 'La ubicación no se pudo agregar, intente nuevamente')
+                return HttpResponseRedirect('/addresses')
+
 
     return render(request, 'new_address.html')
 
