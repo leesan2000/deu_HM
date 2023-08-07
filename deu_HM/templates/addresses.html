@@ -61,7 +61,7 @@
                         Ver Detalle
                     </a>
                     {% if request.user.role == "v" %}
-                    <a href="#" class="button-40 text-white text-decoration-none mr-1" tabindex="0">
+                    <a href="{% url 'update_ubic' ubic.pk %}" class="button-40 text-white text-decoration-none mr-1" tabindex="0">
                         Editar
                     </a>
                     <button class="button-40" data-toggle="modal" data-target="#exampleModal">

@@ -20,6 +20,7 @@ urlpatterns = [
     path('delete_ubic/<int:ubic_id>/', views.delete_ubic, name='delete_ubic'),
     path('delete_note/<int:note_id>/', views.delete_note, name='delete_note'),
     path('update_note/<int:note_id>/', views.update_note, name='update_note'),
+    path('update_ubic/<int:ubic_id>/', views.update_ubic, name='update_ubic'),
     #path('geocode/', views.geocode_address, name='geocode_address'),
 
 
