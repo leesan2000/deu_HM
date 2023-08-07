@@ -77,14 +77,13 @@ def addNote(request):
                     messages.success(request, 'Nota y entrevistados agregados exitosamente')
                     return HttpResponseRedirect('/home')
                 else:
-                    messages.error(request, 'No completo los datos del entrevistado')
-                    return HttpResponseRedirect('/home')
+                    messages.warning(request, 'No completo los datos del entrevistado. Ingrese nuevamente a "Nueva Nota"...')
+                    return render(request, 'home.html', {'form': form, 'entrevistado_formset': entrevistado_formset, 'submitted': submitted})
             else:
                 note.save()
                 messages.success(request, 'Nota agregada exitosamente')
 
             return HttpResponseRedirect('/home')
-
     else:
         form = NoteForm(initial={'user': user})
         entrevistado_formset = EntrevistadoFormset(prefix='entrevistado')
