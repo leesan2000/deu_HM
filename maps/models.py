@@ -22,20 +22,8 @@ class Address(models.Model):
     
     def __str__(self):
         return self.address
-    
 
-class Entrevistado(models.Model):
-    nombre = models.TextField()
-    apellido = models.TextField()
-    edad = models.TextField()
-    profesion = models.TextField()
-    fechaEntr = models.DateField()
-
-    def __str__(self):
-        return self.nombre
-    
 CustomUser = get_user_model()
-
 class Note(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=CustomUser)
     titulo = models.TextField()
@@ -45,14 +33,16 @@ class Note(models.Model):
     ubic = models.ForeignKey(Address, on_delete=models.CASCADE, blank=True, null=True)
     entrevista = models.BooleanField(default=False)
     fechaEntr = models.DateField(null=True, blank=True)
-    entrevistado = models.ForeignKey(Entrevistado, on_delete=models.SET_NULL, blank=True, null=True)
-    autor = models.TextField(default='zzz')
 
     def __str__(self):
         return self.titulo
     
+class Entrevistado(models.Model):
+    nombre = models.TextField()
+    apellido = models.TextField()
+    edad = models.TextField()   
+    profesion = models.TextField()
+    nota = models.ForeignKey(Note, on_delete=models.CASCADE, related_name='entrevistados', blank=True, null=True)
 
-
-
-    
-    
+    def __str__(self):
+        return self.nombre

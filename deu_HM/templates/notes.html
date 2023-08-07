@@ -14,16 +14,15 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
-<h1 style="margin-bottom: 20px; margin-left: 50px; padding-top: 20px;">Notas</h1>
+<h1>Notas</h1>
 
 <div class="container">
     <form style="padding-left: 3%; padding-top: 30px; padding-right: 3%; padding-bottom: 50px;" method="get">
-        {{ filtro.form}}
         <div class="form-group">
+        {{ filtro.form}}
         </div>
         <input class="button-40" type="submit" value="Filtrar">
         <a href="{% url 'notes' %}"><input class="button-40" value="Reiniciar filtros" style="margin-left: 50px ;"></a>
-
     </form>
 
 </div>
@@ -31,7 +30,6 @@
 
 {% if messages %}
 <div class="message-container">
-
     {% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
         <strong>{{ message }}</strong>
@@ -40,7 +38,6 @@
         </button>
     </div>
     {% endfor %}
-
 </div>
 {% endif %}
 
@@ -68,10 +65,18 @@
                 <strong>Publicada el:</strong>
                 <span>{{note.fechaHora|date:"d/m/Y"}}</span>
             </div>
-            <a href="{% url 'detail_note' note.pk %}">
-                {{ note.pk }}
-            </a>
-            <button class="button-40" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+            <div class="pt-2 pb-2">
+                <a href="{% url 'detail_note' note.pk %}" class="button-40 text-white text-decoration-none mr-1 mt-2 mb-2" tabindex="0">
+                    Ver Detalle
+                </a>
+                {% if note.user == request.user %}
+                <a href="#" class="button-40 text-white text-decoration-none mr-1 mt-1 mb-1" tabindex="0">
+                    Editar
+                </a>
+                <button class="button-40" data-toggle="modal" data-target="#exampleModal" tabindex="0">Eliminar</button>
+                {% endif %}
+            </div>
+
 
         </footer>
 

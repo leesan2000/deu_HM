@@ -55,15 +55,26 @@
                 </div>
             </div>
             <footer class="card-footer d-flex align-items-center">
-                <div class="ml-auto">
-                    <button class="button-40" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+                <div class="ml-auto mt-2 mb-2">
+                    <a href="#"
+                        class="button-40 text-white text-decoration-none mr-1" tabindex="0">
+                        Ver Detalle
+                    </a>
+                    {% if request.user.role == "v" %}
+                    <a href="#" class="button-40 text-white text-decoration-none mr-1" tabindex="0">
+                        Editar
+                    </a>
+                    <button class="button-40" data-toggle="modal" data-target="#exampleModal">
+                        Eliminar
+                    </button>
+                    {% endif %}
                 </div>
             </footer>
         </div>
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar la ubicacion?

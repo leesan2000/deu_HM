@@ -15,82 +15,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<div class="sidebar">
-  <div class="logo-details">
-    <i class='bx bxl-c-plus-plus icon'></i>
-    <div class="logo_name">DEU - HM</div>
-    <i class='bx bx-menu' id="btn"></i>
-  </div>
-  <ul class="nav-list">
-    <li>
-      <i class='bx bx-search'></i>
-      <input type="text" placeholder="Search...">
-      <span class="tooltip">Search</span>
-    </li>
-    <li>
-      <a href="{% url 'home' %}">
-        <i class='bx bx-home'></i>
-        <span class="links_name">Home</span>
-      </a>
-      <span class="tooltip">Home</span>
-    </li>
-    <li>
-      <a href="{% url 'profile' %}">
-        <i class='bx bx-user'></i>
-        <span class="links_name">Mi Perfil</span>
-      </a>
-      <span class="tooltip">Mi Perfil</span>
-    </li>
-    <li>
-      <a href="{% url 'notes' %}">
-        <i class='bx bx-chat'></i>
-        <span class="links_name">Notas</span>
-      </a>
-      <span class="tooltip">Notas</span>
-    </li>
-    <li>
-      <a href="{% url 'get_ubics' %}">
-        <i class='bx bx-map-pin'></i>
-        <span class="links_name"> Ubicaciones</span>
-      </a>
-      <span class="tooltip">Ubicaciones</span>
-    </li>
+<header>
+  <div class="sidebar">
+    <div class="logo-details">
+      <i class='bx bxl-c-plus-plus icon'></i>
+      <div class="logo_name">DEU - HM</div>
+      <i class='bx bx-menu' id="btn"></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="{% url 'home' %}">
+          <i class='bx bx-home'></i>
+          <span class="links_name">Home</span>
+        </a>
+        <span class="tooltip">Home</span>
+      </li>
+      <li>
+        <a href="{% url 'profile' %}">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Mi Perfil</span>
+        </a>
+        <span class="tooltip">Mi Perfil</span>
+      </li>
+      <li>
+        <a href="{% url 'notes' %}">
+          <i class='bx bx-chat'></i>
+          <span class="links_name">Notas</span>
+        </a>
+        <span class="tooltip">Notas</span>
+      </li>
+      <li>
+        <a href="{% url 'get_ubics' %}">
+          <i class='bx bx-map-pin'></i>
+          <span class="links_name"> Ubicaciones</span>
+        </a>
+        <span class="tooltip">Ubicaciones</span>
+      </li>
 
-    <li>
-      <a href="{% url 'createEnt' %}">
-        <i class='bx bx-user-plus'></i>
-        <span class="links_name">Agregar entrevistado</span>
-      </a>
-      <span class="tooltip">Agregar entrevistado</span>
-    </li>
+      <li>
+        <a href="{% url 'createEnt' %}">
+          <i class='bx bx-user-plus'></i>
+          <span class="links_name">Agregar entrevistado</span>
+        </a>
+        <span class="tooltip">Agregar entrevistado</span>
+      </li>
 
-    <li class="profile">
-      <div class="profile-details">
-        <img src="{{ request.user.profile_picture.url }}" alt="profileImg">
-        <div class="name_job">
-          <div class="name">{{ request.user.username }}</div>
-          <div class="job">
-            {% if request.user.role == "v" %}
+      <li class="profile">
+        <div class="profile-details">
+          <img src="{{ request.user.profile_picture.url }}" alt="profileImg">
+          <div class="name_job">
+            <div class="name">{{ request.user.username }}</div>
+            <div class="job">
+              {% if request.user.role == "v" %}
               Espectador
-            {% else %}
+              {% else %}
               Investigador
-            {% endif %}
-          </div>          
-          <a href="{% url 'logout' %}" class="log_out"><i class='bx bx-log-out' id="log_out"></i></a>
-    </li>
+              {% endif %}
+            </div>
+            <a href="{% url 'logout' %}" class="log_out"><i class='bx bx-log-out' id="log_out"></i></a>
+      </li>
+    </ul>
+  </div>
+</header>
 
-</div>
-</ul>
-</div>
-<section class="home-section">
-  {% block content %}
-  {% endblock %}
-</section>
-</div>
-<!-- Para incluir Bootstrap 4.6 -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<body>
+  <section class="home-section">
+    {% block content %}
+    {% endblock %}
+  </section>
+  </div>
+  <!-- Para incluir Bootstrap 4.6 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
 </body>
 
 
@@ -121,5 +120,4 @@
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
-
 </html>
