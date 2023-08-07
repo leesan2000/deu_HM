@@ -108,8 +108,11 @@
             <a href="{% url 'detail_note' note.pk %}">
                 <button class="button-40">Ver mas</button>
             </a>
-            <button class="button-40" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
-
+            {% if note.user.username == user.username %}
+                <button class="button-40" style="background-color: red ;" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+                <a href="{% url 'update_note' note.pk %}">
+                    <button class="button-40">Editar</button>
+                </a>
             {% endif %}
 
         </footer>
