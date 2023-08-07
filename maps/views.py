@@ -61,15 +61,28 @@ def addNote(request):
         if form.is_valid() and entrevistado_formset.is_valid():
             note = form.save(commit=False)  # No guardamos la nota aún
             note.user = user  # Asignamos el usuario actual al campo user
-            note.save()  # Ahora guardamos la nota
 
-            entrevistados = entrevistado_formset.save(commit=False)
+            print(form.cleaned_data['entrevista'])
 
-            for entrevistado in entrevistados:
-                entrevistado.nota = note
-                entrevistado.save()
+            if form.cleaned_data['entrevista']:  # Verifica si el campo entrevista es verdadero
+                print(entrevistado_formset.cleaned_data)
+                if any(form.cleaned_data for form in entrevistado_formset):
+                    note.save()  # Guarda la nota si el formulario de entrevistado tiene datos
 
-            messages.success(request, 'Nota y entrevistados agregados exitosamente')
+                    entrevistados = entrevistado_formset.save(commit=False)
+                    for entrevistado in entrevistados:
+                        entrevistado.nota = note
+                        entrevistado.save()
+
+                    messages.success(request, 'Nota y entrevistados agregados exitosamente')
+                    return HttpResponseRedirect('/home')
+                else:
+                    messages.error(request, 'No completo los datos del entrevistado')
+                    return HttpResponseRedirect('/home')
+            else:
+                note.save()
+                messages.success(request, 'Nota agregada exitosamente')
+
             return HttpResponseRedirect('/home')
 
     else:

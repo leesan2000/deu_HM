@@ -31,7 +31,7 @@ class Note(models.Model):
     nroVisita = models.AutoField(primary_key=True)
     fechaHora = models.DateTimeField(auto_now_add=True)
     ubic = models.ForeignKey(Address, on_delete=models.CASCADE, blank=True, null=True)
-    entrevista = models.BooleanField(default=False)
+    entrevista = models.BooleanField(default=True)
     fechaEntr = models.DateField(null=True, blank=True)
 
     def __str__(self):
