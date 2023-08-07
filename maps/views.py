@@ -210,6 +210,22 @@ def update_note(request, note_id):
     return render(request, 'update_nota.html', {'nota':nota, 'formu':form})
 
 
+def update_ubic(request, ubic_id):
+    ubic = get_object_or_404(Address, pk=ubic_id)
+
+    if request.method == 'POST':
+        tipo = request.POST.get('tipo')
+        nombre = request.POST.get('nombre')
+                # Crea una nueva instancia del modelo Location y guárdala en la base de datos
+        ubic.tipo = tipo
+        ubic.nombre = nombre
+        ubic.save()
+        messages.success(request, 'Ubicación actualizada exitosamente', {'ubic':ubic})
+        return HttpResponseRedirect('/addresses')
+    
+    return render(request, 'update_ubic.html')
+
+
 
 def get_notas2(request):
      elementos = Note.objects.all()
