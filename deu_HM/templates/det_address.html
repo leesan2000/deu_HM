@@ -8,12 +8,13 @@
 <head>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+
     <link rel="stylesheet" href="{% static 'css/new_address.css' %}">
 </head>
 
 
 <div style="padding-top: 30px;">
-    <h1 style="padding-left: 50px; padding-bottom: 30px;">Nota #{{obj.pk}}</h1>
+    <h1 style="padding-left: 50px; padding-bottom: 30px;">Ubicacion #{{obj.pk}}</h1>
 
     <div class="card b-1 hover-shadow mb-20 mr-50 ml-50">
         <div class="media card-body">
@@ -36,17 +37,32 @@
 </div>
 
 
-<div style="padding-left: 50px; padding-right: 50px;">
-<div class="card" style="width: 25rem;">
-    <div class="card-body">
-      <h3 class="card-text">Ubicacion de la nota</h3>
-      <p>Latitud: {{obj.ubic.lat}}</p>
-      <p>Longitud: {{obj.ubic.long}}</p>
-      <p>Direccion: {{obj.ubic.address}}</p>
+<h1 style="padding-left: 50px; padding-bottom: 30px;">Notas asociadas</h1>
 
-    </div>
+
+<div class="col" style="padding-left: 3%; padding-right: 5%;">
+    {% for note in notas %}
+        {% if note.ubic.address == obj.address %}
+            <div class="card b-1 hover-shadow" style="margin-right: 50%;">
+                <div class="media card-body">
+                    <div class="media-body">
+                        <div class="mb-2">
+                            <span class="fs-20 pr-16">{{note.titulo}}</span>
+                        </div>
+                        <small class="fs-16 fw-300 ls-1">Autor: {{note.user.first_name}} {{note.user.last_name}}</small>
+                    </div>
+                    <div class="media-right text-right mt-2">
+                        <a href="{% url 'detail_note' note.pk %}">
+                            <button class="button-40">Ver</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
 </div>
-</div>
+
 
 
 
