@@ -1,3 +1,4 @@
+import json
 from typing import Any, Dict
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -186,18 +187,21 @@ def get_notas(request):
      return render(request, 'notes.html', context)
 
 
-def detalle_objeto(request, note_id):
-    objeto = get_object_or_404(Note, id=note_id)
-    detalle_url = reverse('detalle_objeto', args=[note_id])
-    return redirect(detalle_url)
+def get_notas2(request):
+     elementos = Note.objects.all()
+     context = {'notas' : elementos}
+     return render(request, 'det_address.html', context) 
 
 def detail_page(request, note_id):
     obj=get_object_or_404(Note,pk=note_id)
     return render(request, 'det_nota.html', {'obj':obj})
 
 def detail_ubic(request, ubic_id):
-    obj=get_object_or_404(Address,pk=ubic_id)
-    return render(request, 'det_address.html', {'obj':obj})
+    obj = get_object_or_404(Address,pk=ubic_id)
+    notas = Note.objects.all()
+
+    context = {'notas' : notas, 'obj' : obj}
+    return render(request, 'det_address.html', context)
 
 
 def delete_ubic(request, ubic_id):

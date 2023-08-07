@@ -14,18 +14,37 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
-<h1>Notas</h1>
+<h1 style="margin-bottom: 20px; margin-left: 50px; padding-top: 20px;">Notas</h1>
+<style>
+        .container {
+    position: relative;
+    }
 
-<div class="container">
-    <form style="padding-left: 3%; padding-top: 30px; padding-right: 3%; padding-bottom: 50px;" method="get">
-        <div class="form-group">
-        {{ filtro.form}}
-        </div>
-        <input class="button-40" type="submit" value="Filtrar">
-        <a href="{% url 'notes' %}"><input class="button-40" value="Reiniciar filtros" style="margin-left: 50px ;"></a>
-    </form>
+    #btnFiltrar {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 999;
+    }
 
-</div>
+    .columna-oculta {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    height: 100%;
+    width: 300px;
+    background-color: #E4E9F7;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    }
+
+    .columna-visible {
+    right: 0;
+    }
+
+</style>
 
 
 {% if messages %}
@@ -42,7 +61,28 @@
 {% endif %}
 
 
-<div class="col" style="padding-left: 5%; padding-right: 5%;">
+
+<div class="container">
+    <button id="btnFiltrar" class="button-40">Filtrar</button>
+    <div id="columnaFiltro" class="columna-oculta">
+        <button type="button" id="btnCerrar" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>        
+          <form style=" padding-bottom: 50px;" method="get">
+                {{ filtro.form}}
+                <div class="form-group">
+                </div>
+                <input class="button-40" type="submit" value="Filtrar">
+                <a href="{% url 'notes' %}"><input class="button-40" value="Reiniciar filtros" style="margin-top: 20px;"></a>
+            </form>
+    </div>
+  </div>
+
+
+
+
+<div class="col-md-6" style="padding-left: 3%; padding-right: 5%;">
+
     {% for note in notes %}
     <div class="card b-1 hover-shadow">
         <div class="media card-body">
@@ -112,5 +152,36 @@
 <script>
     $("#exampleModal").prependTo("body");
 </script>
+
+<script>
+    document.getElementById('ocultarFormulario').addEventListener('click', function() {
+      var formulario = document.getElementById('miFormulario');
+      formulario.style.transition = 'opacity 0.5s'; // Opcional: agregar una transición para suavizar el ocultamiento.
+      formulario.style.opacity = '0';
+      formulario.style.pointerEvents = 'none'; // Evitar que los campos del formulario sean clicables cuando está oculto.
+    });
+  
+    document.getElementById('mostrarFormulario').addEventListener('click', function() {
+      var formulario = document.getElementById('miFormulario');
+      formulario.style.transition = 'opacity 0.5s'; // Opcional: agregar una transición para suavizar la aparición.
+      formulario.style.opacity = '1';
+      formulario.style.pointerEvents = 'auto'; // Habilitar la interacción con el formulario nuevamente.
+    });
+  </script>
+  
+
+  <script>
+    const btnFiltrar = document.getElementById('btnFiltrar');
+    const columnaFiltro = document.getElementById('columnaFiltro');
+    const btnCerrar = document.getElementById('btnCerrar');
+
+    btnFiltrar.addEventListener('click', () => {
+    columnaFiltro.classList.add('columna-visible');
+    });
+
+    btnCerrar.addEventListener('click', () => {
+    columnaFiltro.classList.remove('columna-visible');
+    });
+  </script>
 
 {% endblock %}
