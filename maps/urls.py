@@ -19,6 +19,7 @@ urlpatterns = [
     path('editar/', edit_user, name='edit_user'),
     path('delete_ubic/<int:ubic_id>/', views.delete_ubic, name='delete_ubic'),
     path('delete_note/<int:note_id>/', views.delete_note, name='delete_note'),
+    path('update_note/<int:note_id>/', views.update_note, name='update_note'),
     #path('geocode/', views.geocode_address, name='geocode_address'),
 
 

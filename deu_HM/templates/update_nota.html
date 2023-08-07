@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <h1 style="padding-top: 20px;"></h1>
+    
+    <form action="" method="post" style="padding-top: 20px;">
+        {% csrf_token %}
+    <div class="form-group">
+        {{ formu.as_p }}
+    </div>
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" value="Actualizar">
+
+    </div>
+    </form>
+
+{% endblock %}

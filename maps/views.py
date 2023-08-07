@@ -173,8 +173,19 @@ def get_notas(request):
      elementos = Note.objects.all()
      filtro = notefilter(request.GET, queryset=elementos)
      elementos = filtro.qs
-     context = {'notes' : elementos, 'filtro' : filtro}
+     user = request.user
+     context = {'notes' : elementos, 'filtro' : filtro, 'user':user}
      return render(request, 'notes.html', context)
+
+def update_note(request, note_id):
+    nota = Note.objects.get(pk=note_id)
+    form = NoteForm(request.POST or None, instance=nota)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Nota actualizada exitosamente')
+        return HttpResponseRedirect('/notes')
+    return render(request, 'update_nota.html', {'nota':nota, 'formu':form})
+
 
 
 def get_notas2(request):
