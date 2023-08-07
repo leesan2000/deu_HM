@@ -200,13 +200,18 @@ def get_notas(request):
      return render(request, 'notes.html', context)
 
 def update_note(request, note_id):
-    nota = Note.objects.get(pk=note_id)
+    nota = get_object_or_404(Note, pk=note_id)
     form = NoteForm(request.POST or None, instance=nota)
-    if form.is_valid():
+    entrevistado_formset = EntrevistadoFormset(request.POST or None, instance=nota, prefix='entrevistado')
+
+    if form.is_valid() and entrevistado_formset.is_valid():
         form.save()
-        messages.success(request, 'Nota actualizada exitosamente')
+        entrevistado_formset.save()
+
+        messages.success(request, 'Nota y entrevistados actualizados exitosamente')
         return HttpResponseRedirect('/notes')
-    return render(request, 'update_nota.html', {'nota':nota, 'formu':form})
+
+    return render(request, 'update_nota.html', {'nota': nota, 'form': form, 'entrevistado_formset': entrevistado_formset})
 
 
 def update_ubic(request, ubic_id):
