@@ -12,7 +12,7 @@
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <link rel="stylesheet" href="{% static 'css/avisos.css' %}">
 </head>
@@ -65,10 +65,8 @@
 </style>
 
 <body>
-
   {% if messages %}
   <div class="message-container">
-
     {% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
       <strong>{{ message }}</strong>
@@ -77,15 +75,16 @@
       </button>
     </div>
     {% endfor %}
-
   </div>
   {% endif %}
 
+  <!-- Modal Button -->
   <button id='miBoton' class="button-40" data-target="#myModal" data-toggle="modal">Nueva nota</button>
   <div id="map"></div>
 
+  <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
 
         <div class="modal-header">
@@ -96,11 +95,127 @@
         </div>
 
         <div class="modal-body">
+          {{ form.media }}
           <form action="" method=POST>
             {% csrf_token %}
+
+            <!-- Titulo -->
             <div class="form-group">
-              {{ formu.as_p }}
+              <div class="form-outline mb-1">
+								<label for="{{ form.titulo.id_for_label }}" class="form-label">Titulo</label>
+								{{ form.titulo }}
+								{% if form.titulo.errors %}
+								<p class="error">{{ form.titulo.errors }}</p>
+								{% endif %}
+							</div>
             </div>
+
+            <!-- Cuerpo -->
+            <div class="form-group">
+              <div class="form-outline mb-1">
+								<label for="{{ form.texto.id_for_label }}" class="form-label">Cuerpo</label>
+								{{ form.texto }}
+								{% if form.texto.errors %}
+								<p class="error">{{ form.texto.errors }}</p>
+								{% endif %}
+							</div>
+            </div>
+
+            <!-- Ubicacion y fecha de entrevistado -->
+            <div class="row">
+              <!-- Ubicacion -->
+              <div class="col-md-6 mb-1">
+                <div class="form-outline">
+                  <label for="{{ form.ubic.id_for_label }}"
+                    class="form-label">Ubicacion</label>
+                  {{ form.ubic }}
+                  {% if form.ubic.errors %}
+                  <p class="error">{{ form.ubic.errors }}</p>
+                  {% endif %}
+                </div>
+              </div>
+              <!-- Fecha de entrevistado -->
+              <div class="col-md-6 mb-1">
+                <div class="form-outline">
+                  <label for="{{ form.fechaEntr.id_for_label }}"
+                    class="form-label">Fecha de entrevistado</label>
+                  {{ form.fechaEntr }}
+                  {% if form.fechaEntr.errors %}
+                  <p class="error">{{ form.fechaEntr.errors }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <!-- Entrevista (Boolean) -->
+            <div class="form-check mt-2">
+              <div class="form-outline mb-1">
+								{{ form.entrevista }}
+								<label for="{{ form.entrevista.id_for_label }}" class="form-label">¿Incluye un entrevistado?</label>
+								{% if form.entrevista.errors %}
+								<p class="error">{{ form.entrevista.errors }}</p>
+								{% endif %}
+							</div>
+            </div>
+            <hr>
+
+            <div id="entrevistado-formset">
+              {{ entrevistado_formset.management_form }}
+              {% for form in entrevistado_formset %}
+                <div class="row">
+                  <!-- Nombre entrevistado -->
+                  <div class="col-md-6 mb-1">
+                    <div class="form-outline">
+                      <label for="{{ form.nombre.id_for_label }}"
+                        class="form-label">Nombre</label>
+                      {{ form.nombre }}
+                      {% if form.nombre.errors %}
+                      <p class="error">{{ form.nombre.errors }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <!-- Apellido entrevistado -->
+                  <div class="col-md-6 mb-1">
+                    <div class="form-outline">
+                      <label for="{{ form.apellido.id_for_label }}"
+                        class="form-label">Apellido</label>
+                      {{ form.apellido }}
+                      {% if form.apellido.errors %}
+                      <p class="error">{{ form.apellido.errors }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <!-- Edad entrevistado -->
+                  <div class="col-md-6 mb-1">
+                    <div class="form-outline">
+                      <label for="{{ form.edad.id_for_label }}"
+                        class="form-label">Edad</label>
+                      {{ form.edad }}
+                      {% if form.edad.errors %}
+                      <p class="error">{{ form.edad.errors }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <!-- Profesion entrevistado -->
+                  <div class="col-md-6 mb-1">
+                    <div class="form-outline">
+                      <label for="{{ form.profesion.id_for_label }}"
+                        class="form-label">Profesion</label>
+                      {{ form.profesion }}
+                      {% if form.profesion.errors %}
+                      <p class="error">{{ form.profesion.errors }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+
+              <!-- Agrega el campo oculto para user -->
+              {{ form.user }}
+          </div>
+
         </div>
 
         <div class="modal-footer">
@@ -112,6 +227,7 @@
       </div>
     </div>
   </div>
+  
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNnptbWtkMDNpYjNrbnoxZHltZmhtbiJ9.hDEJKjc9Cq2708RJIHigIA';
     var map = new mapboxgl.Map({
@@ -133,9 +249,8 @@
             .setHTML(`
             <h3 class="">${ubic.nombre}</h3>
             <p>${ubic.address} | ${ubic.tipo}</p>
-            <a data-target="#myModal" data-toggle="modal" href="#" class="badge badge-dark">Nueva nota</a>
-            
-            <a href="${ubic.url_detail}" class="badge badge-dark">
+            <a data-target="#myModal" data-toggle="modal" href="#" class="btn btn-dark btn-sm">Nueva nota</a>
+            <a href="${ubic.url_detail}" class="btn btn-dark btn-sm">
               Ver detalle
             </a>
           `);

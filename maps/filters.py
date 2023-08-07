@@ -9,7 +9,7 @@ class notefilter(django_filters.FilterSet):
 
     class Meta:
         model = Note
-        fields = ['autor','entrevista', 'entrevistado', 'campo_asociado']
+        fields = ['entrevista', 'campo_asociado']
 
         widgets = {
             

@@ -7,9 +7,7 @@ from django.views.generic.detail import DetailView
 from .models import Address
 from .models import Note
 from .models import Entrevistado
-from .forms import NoteForm
-from .forms import AddressForm
-from .forms import EntForm
+from .forms import NoteForm, AddressForm, EntForm, EntrevistadoFormset
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
@@ -54,21 +52,34 @@ def geocode_address(request):
 def addNote(request):
     success = ""
     submitted = False
-    form = NoteForm
-    notes = Note.objects.all()
-    if(request.method == "POST"):
+    user = request.user  # Obtén el usuario actual
+
+    if request.method == "POST":
         form = NoteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Nota agregada exitosamente')
+        entrevistado_formset = EntrevistadoFormset(request.POST, prefix='entrevistado')
+
+        if form.is_valid() and entrevistado_formset.is_valid():
+            note = form.save(commit=False)  # No guardamos la nota aún
+            note.user = user  # Asignamos el usuario actual al campo user
+            note.save()  # Ahora guardamos la nota
+
+            entrevistados = entrevistado_formset.save(commit=False)
+
+            for entrevistado in entrevistados:
+                entrevistado.nota = note
+                entrevistado.save()
+
+            messages.success(request, 'Nota y entrevistados agregados exitosamente')
             return HttpResponseRedirect('/home')
 
     else:
-            nombre_apellido = f"{request.user.first_name} {request.user.last_name}"
-            form = NoteForm(initial={'autor': nombre_apellido, 'user': request.user })
-            if 'submitted' in request.GET:
-                submitted = True
-    return render(request, 'home.html', {'formu': form, 'submitted':submitted, 'notes' : notes})
+        form = NoteForm(initial={'user': user})
+        entrevistado_formset = EntrevistadoFormset(prefix='entrevistado')
+
+        if 'submitted' in request.GET:
+            submitted = True
+
+    return render(request, 'home.html', {'form': form, 'entrevistado_formset': entrevistado_formset, 'submitted': submitted})
 
 @login_required
 def get_notas(request):
@@ -81,7 +92,6 @@ def get_notas(request):
             'titulo': nota.titulo,
             'texto': nota.texto,
             'nroVisita' : nota.nroVisita,
-            'autor': nota.autor
         })
     return JsonResponse(data, safe=False)
 

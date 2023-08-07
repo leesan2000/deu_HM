@@ -28,7 +28,7 @@
         </div>
         <footer class="card-footer flexbox align-items-center">
             <div>
-                <strong>Publicada el: {{obj.fechaHora}}</strong>
+                <strong>Publicada el: </strong>{{ obj.fechaHora|date:"d/m/Y" }}
                 <span></span>
             </div>
         </footer>
