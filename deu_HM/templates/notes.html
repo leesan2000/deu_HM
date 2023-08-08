@@ -105,13 +105,13 @@
             <a href="{% url 'detail_note' note.pk %}">
                 <button class="button-40">Ver mas</button>
             </a>
-            {% if note.user.username == user.username %}
+            {% if user.role == "i" and note.user.username == user.username %}
                 <a href="{% url 'update_note' note.pk %}">
                     <button class="button-40" >Editar</button>
+                    <p>{{ user.role }}</p>
                 </a>
 
                 <button class="button-40" style="background-color: red ;" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
-
             {% endif %}
             <div>
                 <strong>Publicada el:</strong>

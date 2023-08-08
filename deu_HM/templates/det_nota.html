@@ -48,21 +48,23 @@
                 </div>
             </div>
         </div>
-        {% for ent in entr %}
-        {% if ent.nota.pk == obj.pk %}
-        <div class="col-md-4 mr" style="width: 10rem;">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-text">Entrevistado</h3>
-                    <p>Nombre: {{ent.nombre}}</p>
-                    <p>Apellido: {{ent.apellido}}</p>
-                    <p>Edad: {{ent.edad}}</p>
-                    <p>Profesion: {{ent.profesion}}</p>
+            <div class="col-md-4 mr" style="width: 10rem;">
+                <div class="card">
+                    <div class="card-body">
+                        {% for ent in entr %}
+                            {% if ent.nota.pk == obj.pk %}
+                                <h3 class="card-text">Entrevistado - #{{ent.pk}}</h3>
+                                <p>Nombre: {{ent.nombre}}</p>
+                                <p>Apellido: {{ent.apellido}}</p>
+                                <p>Edad: {{ent.edad}}</p>
+                                <p>Profesion: {{ent.profesion}}</p>
+                                <footer class="card-footer flexbox align-items-center"></footer>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
                 </div>
             </div>
-        </div>
-        {% endif %}
-        {% endfor %}
         <div class="col-md-4" style="padding-right: 50px;">
             <div class="card">
             {% if obj.imagen %}
