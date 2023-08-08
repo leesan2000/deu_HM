@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages import get_messages
+from maps.models import Note
 
 
 
@@ -91,8 +92,9 @@ def user_logout(request):
 
 @login_required
 def profile(request):
+    notas = Note.objects.filter(user=request.user)
     success_messages = messages.get_messages(request)
-    return render(request, 'profile.html', {'messages': success_messages})
+    return render(request, 'profile.html', {'notas': notas,'messages': success_messages})
 
 
 
