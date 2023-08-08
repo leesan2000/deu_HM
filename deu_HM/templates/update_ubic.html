@@ -12,24 +12,34 @@
 
 
 
-<form method="post" action="" style="padding-left: 3%; padding-top: 30px; padding-right: 3%;">
+<form method="post" action="update" style="padding-left: 3%; padding-top: 30px; padding-right: 3%;">
     {% csrf_token %}
     <div class="mb-3">
       <label for="tipo_cultivo" class="form-label">Tipo de cultivo:</label>
       <select class="form-select" id="tipo" name="tipo" aria-label="Seleccione un tipo de cultivo">
-          <option value="{{ obj.tipo }}" disabled selected>Seleccione un tipo de cultivo</option>
-          <option value="Cultivo">Cultivo</option>
-          <option value="Terreno">Terreno</option>
-          <option value="Rio">Rio</option>
+          <option disabled selected>Seleccione un tipo de cultivo</option>
+          {% if ubic.tipo == "Cultivo" %}
+            <option value="Cultivo" selected>Cultivo</option>
+          {% endif %} 
+          {% if ubic.tipo == "Terreno" %}
+            <option value="Terreno" selected>Terreno</option>
+          {% endif %} 
+          {% if ubic.tipo == "Rio" %}
+            <option value="Rio" selected>Rio</option>
+          {% endif %} 
+
       </select>
     </div>
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre de ubicación:</label>
-      <input type="text" class="form-control" id="nombre" value="{{ obj.nombre }}" name="nombre" required>
+
+      <input type="text" class="form-control" id="nombre" value="{{ ubic.nombre }}" name="nombre" required >
     </div>
         <div class="form-group">
             <input class="button-40" type="submit" value="Actualizar">
         </div>
     </div>
+
+    
 
     {% endblock %}

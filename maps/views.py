@@ -215,7 +215,8 @@ def update_note(request, note_id):
 
 
 def update_ubic(request, ubic_id):
-    ubic = get_object_or_404(Address, pk=ubic_id)
+    ubicOld = get_object_or_404(Address, pk=ubic_id)
+    ubic = ubicOld
 
     if request.method == 'POST':
         tipo = request.POST.get('tipo')
@@ -224,10 +225,10 @@ def update_ubic(request, ubic_id):
         ubic.tipo = tipo
         ubic.nombre = nombre
         ubic.save()
-        messages.success(request, 'Ubicación actualizada exitosamente', {'ubic':ubic})
+        messages.success(request, 'Ubicación actualizada exitosamente')
         return HttpResponseRedirect('/addresses')
     
-    return render(request, 'update_ubic.html')
+    return render(request, 'update_ubic.html', {'ubic':ubic, 'ubicOld':ubicOld})
 
 
 
@@ -238,7 +239,8 @@ def get_notas2(request):
 
 def detail_page(request, note_id):
     obj=get_object_or_404(Note,pk=note_id)
-    return render(request, 'det_nota.html', {'obj':obj})
+    entr = Entrevistado.objects.all()
+    return render(request, 'det_nota.html', {'obj':obj, 'entr' : entr})
 
 def detail_ubic(request, ubic_id):
     obj = get_object_or_404(Address,pk=ubic_id)

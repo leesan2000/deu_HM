@@ -35,30 +35,42 @@
     </div>
 </div>
 
-
-
-
-<div class="container" style="margin-left:  2%;">
+<div class="container-fluid" style="padding-left: 50px;">
     <div class="row">
-        <div class="col-md-6">
-            <div class="card" style="width: 25rem">
-                <div class="card-body">
-                    <h3 class="card-text">Ubicacion de la nota</h3>
-                    <p>Latitud: {{obj.ubic.lat}}</p>
-                    <p>Longitud: {{obj.ubic.long}}</p>
-                    <p>Direccion: {{obj.ubic.address}}</p>
-                </div>
+      <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-text">Ubicacion de la nota</h3>
+                <p>Latitud: {{obj.ubic.lat}}</p>
+                <p>Longitud: {{obj.ubic.long}}</p>
+                <p>Direccion: {{obj.ubic.address}}</p>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card" >
-                <div class="card-body">
-                    <img src="{{ obj.imagen.url }}" alt="Imagen">
+      </div>
+      {% for ent in entr %}
+        {% if ent.nota.pk == obj.pk %}
+            <div class="col-md-4 mr" style="width: 10rem;">
+                <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-text">Entrevistado</h3>
+                            <p>Nombre: {{ent.nombre}}</p>
+                            <p>Apellido: {{ent.apellido}}</p>
+                            <p>Edad: {{obj.edad}}</p>
+                            <p>Profesion: {{ent.profesion}}</p>
+                        </div>
                 </div>
             </div>
+        {% endif %}
+    {% endfor %}
+    <div class="col-md-4" style="padding-right: 50px;">
+        <div class="card">
+            <div class="card-body">
+                <img src="{{ obj.imagen.url }}" alt="Imagen">
+            </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
 
 

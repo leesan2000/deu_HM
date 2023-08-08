@@ -9,7 +9,7 @@ class notefilter(django_filters.FilterSet):
 
     class Meta:
         model = Note
-        fields = ['entrevista', 'campo_asociado']
+        fields = ['entrevista', 'ubic', 'campo_asociado', 'user']
 
         widgets = {
             
@@ -22,5 +22,7 @@ class notefilter(django_filters.FilterSet):
     def __init__(self, *args, **kwargs):
        super(notefilter, self).__init__(*args, **kwargs)
        self.filters['campo_asociado'].label="Tipo de terreno"
+       self.filters['ubic'].label="Ubicación"
+       self.filters['user'].label="Usuario creador"
 
 

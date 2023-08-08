@@ -69,7 +69,7 @@
             <span aria-hidden="true">&times;</span>
         </button>        
           <form style=" padding-bottom: 50px;" method="get">
-                {{ filtro.form}}
+                {{ filtro.form.as_p }}
                 <div class="form-group">
                 </div>
                 <input class="button-40" type="submit" value="Filtrar">
@@ -81,7 +81,7 @@
 
 
 
-<div class="col-md-6" style="padding-left: 3%; padding-right: 5%;">
+<div class="col-md-10" style="padding-left: 3%; padding-right: 5%;">
 
     {% for note in notes %}
     <div class="card b-1 hover-shadow">
@@ -101,19 +101,22 @@
             </div>
         </div>
         <footer class="card-footer flexbox align-items-center">
-            <div>
-                <strong>Publicada el:</strong>
-                <span>{{note.fechaHora|date:"d/m/Y"}}</span>
-            </div>
+
             <a href="{% url 'detail_note' note.pk %}">
                 <button class="button-40">Ver mas</button>
             </a>
             {% if note.user.username == user.username %}
-                <button class="button-40" style="background-color: red ;" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
                 <a href="{% url 'update_note' note.pk %}">
-                    <button class="button-40">Editar</button>
+                    <button class="button-40" >Editar</button>
                 </a>
+
+                <button class="button-40" style="background-color: red ;" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+
             {% endif %}
+            <div>
+                <strong>Publicada el:</strong>
+                <span>{{note.fechaHora|date:"d/m/Y"}}</span>
+            </div>
 
         </footer>
 

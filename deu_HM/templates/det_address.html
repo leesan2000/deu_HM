@@ -18,19 +18,20 @@
 
     <div class="card b-1 hover-shadow mb-20 mr-50 ml-50">
         <div class="media card-body">
-            <h1>{{ obj.nombre }}</h1>
+            <h1>{{ obj.nombre }} - {{obj.tipo}}</h1>
         </div>
         <footer class="card-footer flexbox align-items-center">
         </footer>
         <div class="media card-body">
             <div class="mb-2">
-                <p>{{obj.texto}}</p>
+                <p>{{obj.address}}</p>
             </div>
         </div>
         <footer class="card-footer flexbox align-items-center">
             <div>
-                <strong>Publicada el: {{obj.fechaHora}}</strong>
-                <span></span>
+                <strong>Latitud: {{obj.lat}} - </strong>
+                <strong>Longitud: {{obj.long}}</strong>
+
             </div>
         </footer>
     </div>

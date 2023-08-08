@@ -54,21 +54,18 @@
                     <small class="fs-16 fw-300 ls-1">Longitud: {{ ubic.long }}</small>
                 </div>
             </div>
-            <footer class="card-footer d-flex align-items-center">
-                <div class="ml-auto mt-2 mb-2">
-                    <a href="#"
-                        class="button-40 text-white text-decoration-none mr-1" tabindex="0">
-                        Ver Detalle
+            <footer class="card-footer flexbox align-items-center">
+                <a href="{% url 'detail_ubic' ubic.pk %}">
+                    <button class="button-40">Ver mas</button>
+                </a>
+                {% if request.user.role == "v" %}
+                    <a href="{% url 'update_ubic' ubic.pk %}">
+                        <button class="button-40" style="margin-left: 20px;">Editar</button>
                     </a>
-                    {% if request.user.role == "v" %}
-                    <a href="{% url 'update_ubic' ubic.pk %}" class="button-40 text-white text-decoration-none mr-1" tabindex="0">
-                        Editar
-                    </a>
-                    <button class="button-40" data-toggle="modal" data-target="#exampleModal">
-                        Eliminar
-                    </button>
-                    {% endif %}
-                </div>
+                    <button class="button-40" style="background-color: red ; margin-left: 20px;" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+
+                {% endif %}
+    
             </footer>
         </div>
 
@@ -92,6 +89,8 @@
                 </div>
             </div>
         </div>
+
+        
         {% endfor %}
     </div>
     <br>
