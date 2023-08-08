@@ -84,4 +84,5 @@ EntrevistadoFormset = inlineformset_factory(
     },
     extra=1,  # El número de formularios vacíos que se muestran inicialmente
     can_delete=True,  # Permite eliminar formularios de entrevistados
+    fk_name='nota',
 )

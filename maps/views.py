@@ -204,6 +204,8 @@ def update_note(request, note_id):
     form = NoteForm(request.POST or None, instance=nota)
     entrevistado_formset = EntrevistadoFormset(request.POST or None, instance=nota, prefix='entrevistado')
 
+    print(entrevistado_formset.is_valid())
+    print(entrevistado_formset.errors)
     if form.is_valid() and entrevistado_formset.is_valid():
         form.save()
         entrevistado_formset.save()

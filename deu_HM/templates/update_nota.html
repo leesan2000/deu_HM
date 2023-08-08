@@ -95,52 +95,9 @@
             <div id="entrevistado-formset">
                 {{ entrevistado_formset.management_form }}
                 {% for form in entrevistado_formset %}
-                <div class="row">
-                    <!-- Nombre entrevistado -->
-                    <div class="col-md-6 mb-1">
-                        <div class="form-outline">
-                            <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
-                            {{ form.nombre }}
-                            {% if form.nombre.errors %}
-                            <p class="error">{{ form.nombre.errors }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <!-- Apellido entrevistado -->
-                    <div class="col-md-6 mb-1">
-                        <div class="form-outline">
-                            <label for="{{ form.apellido.id_for_label }}" class="form-label">Apellido</label>
-                            {{ form.apellido }}
-                            {% if form.apellido.errors %}
-                            <p class="error">{{ form.apellido.errors }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <!-- Edad entrevistado -->
-                    <div class="col-md-6 mb-1">
-                        <div class="form-outline">
-                            <label for="{{ form.edad.id_for_label }}" class="form-label">Edad</label>
-                            {{ form.edad }}
-                            {% if form.edad.errors %}
-                            <p class="error">{{ form.edad.errors }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <!-- Profesion entrevistado -->
-                    <div class="col-md-6 mb-1">
-                        <div class="form-outline">
-                            <label for="{{ form.profesion.id_for_label }}" class="form-label">Profesion</label>
-                            {{ form.profesion }}
-                            {% if form.profesion.errors %}
-                            <p class="error">{{ form.profesion.errors }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+                    {{ form.as_table }}
+                    <hr>
                 {% endfor %}
-
                 <!-- Agrega el campo oculto para user -->
                 {{ form.user }}
             </div>
