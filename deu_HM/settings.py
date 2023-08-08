@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django_extensions',
     "bootstrap_datepicker_plus",
     "django_filters",
+    "imagekit",
+    "multiselectfield",
 ]
 
 MIDDLEWARE = [

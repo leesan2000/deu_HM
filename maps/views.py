@@ -55,7 +55,7 @@ def addNote(request):
     user = request.user  # Obtén el usuario actual
 
     if request.method == "POST":
-        form = NoteForm(request.POST)
+        form = NoteForm(request.POST, request.FILES)
         entrevistado_formset = EntrevistadoFormset(request.POST, prefix='entrevistado')
 
         if form.is_valid() and entrevistado_formset.is_valid():

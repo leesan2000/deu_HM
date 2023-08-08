@@ -8,7 +8,7 @@ from django.forms import inlineformset_factory
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = ['user','titulo', 'texto', 'ubic', 'entrevista', 'fechaEntr']
+        fields = ['user','titulo', 'texto', 'ubic', 'entrevista', 'fechaEntr', 'imagen']
 
         widgets = {
             
