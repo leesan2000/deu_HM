@@ -126,9 +126,6 @@
       $('#id_entrevistado-2-profesion') // Ajusta los IDs según la estructura real
     ];
 
-
-
-
     // Función para habilitar o deshabilitar campos dependiendo del valor del campo booleano
     function controlarCampos() {
       if (campoBooleano.prop('checked')) {
@@ -140,18 +137,7 @@
           campo.prop('disabled', true);
         });
       }
-
-      camposADesactivar.forEach(function(elemento) {
-        var idCompleto = elemento.attr('id'); // Obtiene el ID completo, por ejemplo: 'id_entrevistado-0-nombre'
-        var numeroID = idCompleto.split('-')[2]; // Divide el ID completo y obtiene el tercer elemento, que sería el número
-
-        console.log("Número del ID:", numeroID);
-        });
-
     }
-
-    
-
 
     // Llamar a la función cuando la página se cargue, cuando el valor del campo booleano cambie
     // y cuando el campo de fecha de entrevistado obtenga el enfoque
