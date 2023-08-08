@@ -131,7 +131,7 @@ MESSAGE_TAGS = {
 
 LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'America/Lima'
+TIME_ZONE = 'America/Buenos Aires'
 
 USE_I18N = True
 
