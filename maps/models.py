@@ -1,6 +1,8 @@
 from django.db import models
 import geocoder
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from django.core import validators
 
 mapbox_token = 'pk.eyJ1IjoibGVlc2FuNjQiLCJhIjoiY2xrNzduejE0MDV0dDNnbjR0cDVtNnc4ciJ9.nA8U773QrxdRkRZiw8TlnA'
 
@@ -33,7 +35,7 @@ class Note(models.Model):
     nroVisita = models.AutoField(primary_key=True)
     fechaHora = models.DateTimeField(auto_now_add=True)
     ubic = models.ForeignKey(Address, on_delete=models.CASCADE, blank=True, null=True)
-    entrevista = models.BooleanField(default=False)
+    entrevista = models.BooleanField(default=True)
     fechaEntr = models.DateField(null=True, blank=True)
     imagen = models.ImageField(upload_to='fotos/')
 
@@ -46,9 +48,9 @@ class Note(models.Model):
 class Entrevistado(models.Model):
     nombre = models.TextField()
     apellido = models.TextField()
-    edad = models.TextField()   
+    edad = models.TextField(validators=[validators.RegexValidator(r'^[0-9]+$', 'Ingrese un valor numérico válido.')])
     profesion = models.TextField()
-    nota = models.ForeignKey(Note, on_delete=models.CASCADE, related_name='entrevistados', blank=True, null=True)
+    nota = models.ForeignKey('Note', on_delete=models.CASCADE, related_name='entrevistados', blank=True, null=True)
 
     def __str__(self):
         return self.nombre

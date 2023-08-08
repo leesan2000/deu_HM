@@ -11,8 +11,10 @@
   <meta charset="utf-8">
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 
   <link rel="stylesheet" href="{% static 'css/avisos.css' %}">
 </head>
@@ -301,27 +303,34 @@
 </script>
 
 <script type="text/javascript">
-  // Función para habilitar o deshabilitar el campo dependiendo del valor del campo booleano
-  function controlarCampo() {
-    var campoBooleano = $('#id_entrevista'); // Asegúrate de reemplazar 'id_campo_booleano' con el ID real de tu campo booleano
-    var campoADesactivar = $('#id_entrevistado');
-    var campoADesactivar2 = $('#id_fechaEntr');
-    // Asegúrate de reemplazar 'id_campo_a_desactivar' con el ID real de tu campo a desactivar
-
-    if (campoBooleano.prop('checked')) {
-      campoADesactivar.prop('disabled', false);
-      campoADesactivar2.prop('disabled', false)
-    } else {
-      campoADesactivar.prop('disabled', true);
-      campoADesactivar2.prop('disabled', true)
-
-    }
-  }
-
-  // Llamar a la función cuando la página se cargue y cuando el valor del campo booleano cambie
   $(document).ready(function () {
-    controlarCampo();
-    $('#id_entrevista').change(controlarCampo);
+    var campoBooleano = $('#id_entrevista');
+    var camposADesactivar = [
+      $('#id_fechaEntr'),
+      $('#id_entrevistado-0-nombre'), // Ajusta los IDs según la estructura real
+      $('#id_entrevistado-0-apellido'), // Ajusta los IDs según la estructura real
+      $('#id_entrevistado-0-edad'), // Ajusta los IDs según la estructura real
+      $('#id_entrevistado-0-profesion') // Ajusta los IDs según la estructura real
+    ];
+
+    // Función para habilitar o deshabilitar campos dependiendo del valor del campo booleano
+    function controlarCampos() {
+      if (campoBooleano.prop('checked')) {
+        camposADesactivar.forEach(function(campo) {
+          campo.prop('disabled', false);
+        });
+      } else {
+        camposADesactivar.forEach(function(campo) {
+          campo.prop('disabled', true);
+        });
+      }
+    }
+
+    // Llamar a la función cuando la página se cargue, cuando el valor del campo booleano cambie
+    // y cuando el campo de fecha de entrevistado obtenga el enfoque
+    controlarCampos();
+    campoBooleano.change(controlarCampos);
+    $('#id_fechaEntr').focus(controlarCampos);
   });
 </script>
 {% endblock %}
