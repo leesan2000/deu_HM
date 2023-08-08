@@ -34,10 +34,10 @@ class Note(models.Model):
     texto = models.TextField()
     nroVisita = models.AutoField(primary_key=True)
     fechaHora = models.DateTimeField(auto_now_add=True)
-    ubic = models.ForeignKey(Address, on_delete=models.CASCADE, blank=True, null=True)
+    ubic = models.ForeignKey(Address, on_delete=models.CASCADE)
     entrevista = models.BooleanField(default=True)
     fechaEntr = models.DateField(null=True, blank=True)
-    imagen = models.ImageField(upload_to='fotos/')
+    imagen = models.ImageField(upload_to='fotos/', blank=True, null=True)
 
     def __str__(self):
         return self.titulo
