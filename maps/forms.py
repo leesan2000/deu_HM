@@ -5,20 +5,22 @@ from .models import Entrevistado
 from bootstrap_datepicker_plus.widgets import DatePickerInput
 from django.forms import inlineformset_factory
 
+
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = ['user','titulo', 'texto', 'ubic', 'entrevista', 'fechaEntr', 'imagen']
+        fields = ['user', 'titulo', 'texto', 'ubic',
+                  'entrevista', 'fechaEntr', 'imagen']
 
         widgets = {
-            
-            'user' : forms.HiddenInput(),
-            'titulo': forms.TextInput(attrs={'placeholder':'Titulo de la nota','class': 'form-control'}),
-            'texto' : forms.Textarea(attrs={'placeholder':'Cuerpo de la nota...','class': 'form-control','rows':5,'cols':40,'style':'resize:none;'}),
-            'ubic' : forms.Select(attrs={'class':'form-control'}),
-            'fechaEntr' : DatePickerInput(
+
+            'user': forms.HiddenInput(),
+            'titulo': forms.TextInput(attrs={'placeholder': 'Titulo de la nota', 'class': 'form-control'}),
+            'texto': forms.Textarea(attrs={'placeholder': 'Cuerpo de la nota...', 'class': 'form-control', 'rows': 5, 'cols': 40, 'style': 'resize:none;'}),
+            'ubic': forms.Select(attrs={'class': 'form-control'}),
+            'fechaEntr': DatePickerInput(
                 options={
-                    "format": "DD/MM/YYYY", # moment date-time format
+                    "format": "DD/MM/YYYY",  # moment date-time format
                     "showClose": True,
                     "showClear": True,
                     "showTodayButton": True,
@@ -26,7 +28,7 @@ class NoteForm(forms.ModelForm):
                 },
                 attrs={'class': 'form-control'}
             ),
-            'entrevista': forms.CheckboxInput(attrs={'class':'form-check-input'}),
+            'entrevista': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
         def __init__(self, *args, **kwargs):
@@ -34,15 +36,15 @@ class NoteForm(forms.ModelForm):
 
 
 class AddressForm(forms.ModelForm):
-    class Meta:        
+    class Meta:
         model = Address
         fields = {'nombre', 'address', 'tipo'}
 
         widgets = {
-            
+
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'address' : forms.TextInput(attrs={'class': 'form-control', 'id' : 'direccion', 'placeholder' : 'Ingrese una direccion'}),
-            'tipo' : forms.Select(attrs={'class':'form-control'}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'id': 'direccion', 'placeholder': 'Ingrese una direccion'}),
+            'tipo': forms.Select(attrs={'class': 'form-control'}),
         }
 
         labels = {
@@ -50,8 +52,6 @@ class AddressForm(forms.ModelForm):
             'address': 'Dirección',
             'tipo': 'Tipo de ubicación',
         }
-
-    
 
 
 class EntForm(forms.ModelForm):
@@ -71,13 +71,14 @@ class EntForm(forms.ModelForm):
             'edad': forms.TextInput(attrs={'class': 'form-control'}),
             'profesion': forms.TextInput(attrs={'class': 'form-control'}),
         }
-        
+
+
 EntrevistadoFormset = inlineformset_factory(
     parent_model=Note,  # Reemplaza 'Note' con el modelo principal de tus notas
     model=Entrevistado,
     fields=('nombre', 'apellido', 'edad', 'profesion'),
     widgets={
-        'nombre': forms.TextInput(attrs={'class':'form-control'}),
+        'nombre': forms.TextInput(attrs={'class': 'form-control'}),
         'apellido': forms.TextInput(attrs={'class': 'form-control'}),
         'edad': forms.TextInput(attrs={'class': 'form-control'}),
         'profesion': forms.TextInput(attrs={'class': 'form-control'}),
