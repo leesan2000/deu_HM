@@ -1,0 +1,1 @@
+web: gunicorn deu_HM.wsgi --log-file -
