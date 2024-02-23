@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'deu_HM.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'deuDATABASE',
         'USER': 'leesan',
         'PASSWORD': '1234',
