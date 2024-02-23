@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-v6y6&@olputbz@r_@of-r9=#-+=l^ad_5=)%0n!ydc*7(7r8^8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ff35-186-57-212-20.ngrok-free.app', '127.0.0.1', '*', '.vercel.app']
+ALLOWED_HOSTS = "127.0.0.1", ".vercel.app", ".now.sh"
 
 
 # Application definition
@@ -96,14 +96,19 @@ WSGI_APPLICATION = 'deu_HM.wsgi.application'
 #    }
 #}
 
+
+
+from dotenv import load_dotenv
+load_dotenv()
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'deuDATABASE',
-        'USER': 'leesan',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
     }
 }
 
