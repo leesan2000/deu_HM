@@ -96,6 +96,17 @@ WSGI_APPLICATION = 'deu_HM.wsgi.application'
 #    }
 #}
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '<mydb>',
+        'USER': '<myuser>',
+        'PASSWORD': '<mypass>',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
 
 
 
