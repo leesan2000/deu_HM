@@ -98,19 +98,20 @@ WSGI_APPLICATION = 'deu_HM.wsgi.application'
 
 
 
-from dotenv import load_dotenv
-load_dotenv()
+#from dotenv import load_dotenv
+#load_dotenv()
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
+        "NAME": "postgres",
+        "USER": "postgres.nvrihoguvrfloolrrezy",
+        "PASSWORD": "Selenk12368",
+        "HOST": "aws-0-sa-east-1.pooler.supabase.com",
+        "PORT": "5432",
     }
 }
+
 
 
 
