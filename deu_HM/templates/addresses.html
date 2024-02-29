@@ -101,6 +101,8 @@
 
 <script>
     $("#exampleModal").prependTo("body");
+    app.use(express.static(__dirname + "/static/"));
+
 </script>
 
 {% endblock %}
