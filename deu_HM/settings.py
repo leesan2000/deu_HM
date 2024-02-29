@@ -167,17 +167,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    #'django.contrib.staticfiles.finders.AppDirectoriesFinder',    #causes verbose duplicate notifications in django 1.9
-)
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')
 
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'deu_HM/static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
